@@ -31,8 +31,6 @@ void printResult(std::string algorithm, float duration, int numberOfCalls){
     std::cout << algorithm << " \t | \t " << duration / 1000000 << "ms \t | \t " << numberOfCalls << "\n";
 }
 
-
-
 /**
  * Breadth First Search algorithm
  * @param maze
