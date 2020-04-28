@@ -27,9 +27,19 @@ void fill(glm::vec4 color){}
 
 #endif
 
-Maze maze(2, 3, 0, columns - 1, rows -1);
+Maze maze(0, 3, 0, columns - 1, rows -1);
 std::vector<tuple<Tile, Tile>> path, path1, path2;
 std::string algorithm;
+
+void benchmark(){
+    path1 = breadth_first_search(maze);
+    path2 = breadth_first_search_optimized(maze);
+    if(path1.size() <= path2.size()){
+        path = path1;
+    }else{
+        path = path2;
+    }
+}
 
 void setup() {
     //Start User Input
@@ -41,13 +51,7 @@ void setup() {
     std::cout << "Algorithm \t | \t Duration \t | \t Number of Calls \n";
     std::cout << "---------------------------------------------------------------- \n";
     size(640, 680);
-    path1 = breadth_first_search(maze);
-    path2 = breadth_first_search_optimized(maze);
-    if(path1.size() <= path2.size()){
-        path = path1;
-    }else{
-        path = path2;
-    }
+    path = breadth_first_search(maze);
 
 }
 

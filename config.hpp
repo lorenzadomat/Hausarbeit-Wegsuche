@@ -5,9 +5,9 @@
 #ifndef HAUSARBEITWEGSUCHE_CONFIG_HPP
 #define HAUSARBEITWEGSUCHE_CONFIG_HPP
 
-#define rows 50
-#define columns 50
-#define tileSize 15
+#define rows 5
+#define columns 5
+#define tileSize 50
 #define gui true
 
 
