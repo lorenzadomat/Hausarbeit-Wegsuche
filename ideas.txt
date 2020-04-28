@@ -1,2 +1,0 @@
-//TODO Evtl eine Timer Klasse für SearchAlgorithms
-//TODO Benchmark Methode

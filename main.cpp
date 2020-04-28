@@ -6,7 +6,14 @@
 #include <tuple>
 #include "libxd-0.3.2-Darwin/include/glm/glm.hpp"
 #if gui == true
-#include "./libxd-0.3.2-Darwin/include/xd/xd.hpp"
+    #ifdef __APPLE__
+        #include "./libxd-0.3.2-Darwin/include/xd/xd.hpp"
+    #elif _WIN32
+        #include "./libxd-0.3.2-win32/include/xd/xd.hpp"
+    #elif _WIN64
+        #include "./libxd-0.3.2-win32/include/xd/xd.hpp"
+    #endif
+
 using namespace xd;
 #else
 
