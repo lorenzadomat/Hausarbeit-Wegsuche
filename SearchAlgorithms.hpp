@@ -9,6 +9,7 @@
 #include <cmath>
 #include "config.hpp"
 #include "Timer.hpp"
+#include "Console.hpp"
 #ifndef HAUSARBEITWEGSUCHE_SEARCHALGORITHMS_HPP
 #define HAUSARBEITWEGSUCHE_SEARCHALGORITHMS_HPP
 
@@ -25,10 +26,6 @@ bool sortByDistanceToEnd(Tile* i, Tile* j){
     double iDist = distanceToPoint(i->getY(), i->getX(), curY, curX);
     double jDist = distanceToPoint(j->getY(), j->getX(), curY, curX);
     return iDist > jDist;
-}
-
-void printResult(std::string algorithm, float duration, int numberOfCalls){
-    std::cout << algorithm << " \t | \t " << duration / 1000000 << "ms \t | \t " << numberOfCalls << "\n";
 }
 
 /**
@@ -68,7 +65,7 @@ std::vector<tuple<Tile, Tile>> breadth_first_search(Maze maze){
 
     //End Timer
     timer.stop();
-    printResult("Breitensuche", timer.getDuration(), maze.getNumberOfCalls());
+    printTableRow("Breitensuche", timer.getDuration(), maze.getNumberOfCalls());
     return finalPath;
 
 }
@@ -109,7 +106,7 @@ std::vector<tuple<Tile, Tile>> breadth_first_search_optimized(Maze maze){
 
     //End Timer
     timer.stop();
-    printResult("Breitensuche2", timer.getDuration(), maze.getNumberOfCalls());
+    printTableRow("Breitensuche2", timer.getDuration(), maze.getNumberOfCalls());
     return finalPath;
 }
 

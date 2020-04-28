@@ -1,6 +1,7 @@
 #include "config.hpp"
 #include "Maze.hpp"
 #include "SearchAlgorithms.hpp"
+#include "Console.hpp"
 #include <iostream>
 #include <vector>
 #include <tuple>
@@ -48,15 +49,14 @@ void setup() {
     //std::cout << "Algorithmus: " << algorithm;
 
     //End User Input
-    std::cout << "Algorithm \t | \t Duration \t | \t Number of Calls \n";
-    std::cout << "---------------------------------------------------------------- \n";
+    printTableHeader();
     size(640, 680);
     path = breadth_first_search(maze);
 
 }
 
 void draw() {
-
+    // Draw Labyrinth
     rect(0, 0, tileSize * (rows + 2), tileSize * (columns + 2));
     for(int x = 0; x < rows ; x++){
         for(int y = 0; y < columns; y++){
