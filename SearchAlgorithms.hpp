@@ -33,9 +33,6 @@ void printResult(std::string algorithm, float duration, int numberOfCalls){
 
 
 
-
-
-
 /**
  * Breadth First Search algorithm
  * @param maze
