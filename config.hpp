@@ -1,14 +1,28 @@
-//
-// Created by l.adomat on 26.04.20.
-//
-
 #ifndef HAUSARBEITWEGSUCHE_CONFIG_HPP
 #define HAUSARBEITWEGSUCHE_CONFIG_HPP
 
-#define rows 5
-#define columns 5
-#define tileSize 50
-#define gui true
+#include <iostream>
+
+#ifdef __APPLE__
+    #include "./libxd-0.3.2-Darwin/include/xd/xd.hpp"
+    #include "./libxd-0.3.2-Darwin/include/glm/glm.hpp"
+#endif
+
+#ifdef _WIN32
+    #include "./libxd-0.3.2-win32/include/xd/xd.hpp"
+    #include "libxd-0.3.2-win32/include/glm/glm.hpp"
+#endif
+
+#ifdef _WIN64
+    #include "./libxd-0.3.2-win32/include/xd/xd.hpp"
+    #include "libxd-0.3.2-win32/include/glm/glm.hpp"
+#endif
+
+#define rows 50
+#define columns 50
+#define tileSize 15
+
+using namespace std;
 
 
-#endif //HAUSARBEITWEGSUCHE_CONFIG_HPP
+#endif
