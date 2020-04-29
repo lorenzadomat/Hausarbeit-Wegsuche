@@ -18,7 +18,6 @@ private:
     int numberOfCalls;
 public:
     Maze(int maze, int pStartX, int pStartY, int pEndX, int pEndY);
-    ~Maze();
     Tile* getTile(int pY, int pX);
     Tile* getStart();
     Tile* getEnd();
