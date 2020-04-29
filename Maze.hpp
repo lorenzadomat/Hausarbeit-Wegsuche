@@ -1,12 +1,7 @@
-//
-// Created by l.adomat on 26.04.20.
-//
 #include "config.hpp"
 #include "Tile.hpp"
 #include <vector>
-#include <iostream>
 #include <stack>
-#include "libxd-0.3.2-Darwin/include/glm/glm.hpp"
 #ifndef HAUSARBEITWEGSUCHE_MAZE_HPP
 #define HAUSARBEITWEGSUCHE_MAZE_HPP
 
@@ -23,6 +18,7 @@ private:
     int numberOfCalls;
 public:
     Maze(int maze, int pStartX, int pStartY, int pEndX, int pEndY);
+    ~Maze();
     Tile* getTile(int pY, int pX);
     Tile* getStart();
     Tile* getEnd();
@@ -30,8 +26,8 @@ public:
     Tile* getRightNeighbour(int pY, int pX);
     Tile* getBottomNeighbour(int pY, int pX);
     Tile* getLeftNeighbour(int pY, int pX);
-    std::vector<Tile*> getUnvisitedNeighbours(int pY, int pX);
-    std::vector<Tile*> getUnvisitedAccessibleNeighbours(int pY, int pX);
+    vector<Tile*> getUnvisitedNeighbours(int pY, int pX);
+    vector<Tile*> getUnvisitedAccessibleNeighbours(int pY, int pX);
     int getNumberOfCalls(){return numberOfCalls;}
     void exampleMaze1();
     void exampleMaze2();
@@ -111,8 +107,8 @@ void Maze::setEnd(int pY, int pX) {
     tiles[pY][pX].setColor(glm::vec4(1.0, 0.0, 0.0, 1.0));
 }
 
-std::vector<Tile*> Maze::getUnvisitedAccessibleNeighbours(int pY, int pX) {
-    std::vector<Tile*> list;
+vector<Tile*> Maze::getUnvisitedAccessibleNeighbours(int pY, int pX) {
+    vector<Tile*> list;
     Tile* neighbour = getTopNeighbour(pY,pX);
     if(neighbour && !neighbour->isVisited() && neighbour->getBottom()){
         list.insert(list.end(), neighbour);
@@ -132,8 +128,8 @@ std::vector<Tile*> Maze::getUnvisitedAccessibleNeighbours(int pY, int pX) {
     return list;
 }
 
-std::vector<Tile*> Maze::getUnvisitedNeighbours(int pY, int pX) {
-    std::vector<Tile*> list;
+vector<Tile*> Maze::getUnvisitedNeighbours(int pY, int pX) {
+    vector<Tile*> list;
     Tile* neighbour = getTopNeighbour(pY,pX);
     if(neighbour && !neighbour->isVisited()){
         list.insert(list.end(), neighbour);
@@ -206,7 +202,7 @@ void Maze::genRandomMaze() {
         }
     }
 
-    std::stack<Tile*> stack;
+    stack<Tile*> stack;
     tiles[startY][startX].setVisited(true);
     stack.push(&tiles[startY][startX]);
     Tile* curCell;

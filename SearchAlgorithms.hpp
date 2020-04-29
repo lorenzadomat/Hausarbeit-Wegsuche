@@ -1,9 +1,5 @@
-//
-// Created by l.adomat on 26.04.20.
-//
 #include <vector>
 #include <string>
-#include <iostream>
 #include <queue>
 #include <tuple>
 #include <cmath>
@@ -12,8 +8,6 @@
 #include "Console.hpp"
 #ifndef HAUSARBEITWEGSUCHE_SEARCHALGORITHMS_HPP
 #define HAUSARBEITWEGSUCHE_SEARCHALGORITHMS_HPP
-
-using namespace std;
 
 int curX = 0;
 int curY = 0;
@@ -33,10 +27,10 @@ bool sortByDistanceToEnd(Tile* i, Tile* j){
  * @param maze
  * @return
  */
-std::vector<tuple<Tile, Tile>> breadth_first_search(Maze maze){
+vector<tuple<Tile, Tile>> breadth_first_search(Maze maze){
     maze.reset();
-    std::vector<tuple<Tile, Tile>> finalPath;
-    std::queue<Tile*> queue;
+    vector<tuple<Tile, Tile>> finalPath;
+    queue<Tile*> queue;
     Timer timer;
 
     //Start Timer
@@ -52,7 +46,7 @@ std::vector<tuple<Tile, Tile>> breadth_first_search(Maze maze){
         if(tile == end){
             break;
         }
-        std::vector<Tile*> neighbours = maze.getUnvisitedAccessibleNeighbours(tile->getY() / tileSize, tile->getX() / tileSize);
+        vector<Tile*> neighbours = maze.getUnvisitedAccessibleNeighbours(tile->getY() / tileSize, tile->getX() / tileSize);
         for(int i = 0; i < neighbours.size(); i++){
             neighbours[i]->setVisited(true);
             queue.push(neighbours[i]);
@@ -74,10 +68,10 @@ std::vector<tuple<Tile, Tile>> breadth_first_search(Maze maze){
  * @param maze
  * @return
  */
-std::vector<tuple<Tile, Tile>> breadth_first_search_optimized(Maze maze){
+vector<tuple<Tile, Tile>> breadth_first_search_optimized(Maze maze){
     maze.reset();
-    std::vector<tuple<Tile, Tile>> finalPath;
-    std::vector<Tile*> queue;
+    vector<tuple<Tile, Tile>> finalPath;
+    vector<Tile*> queue;
     Timer timer;
 
     //Start Timer
@@ -86,13 +80,15 @@ std::vector<tuple<Tile, Tile>> breadth_first_search_optimized(Maze maze){
     //Start Algorithm
     maze.getStart()->setVisited(true);
     queue.insert(queue.end(), maze.getStart());
-    while(queue.size() > 0){
-        std::sort(queue.begin(), queue.end(), sortByDistanceToEnd);
+    bool found = false;
+    while(queue.size() > 0 || found){
+        sort(queue.begin(), queue.end(), sortByDistanceToEnd);
         Tile* tile = queue.front();
         if(tile == maze.getEnd()){
+            found = true;
             break;
         }
-        std::vector<Tile*> neighbours = maze.getUnvisitedAccessibleNeighbours(tile->getY() / tileSize, tile->getX() / tileSize);
+        vector<Tile*> neighbours = maze.getUnvisitedAccessibleNeighbours(tile->getY() / tileSize, tile->getX() / tileSize);
         for(int i = 0; i < neighbours.size(); i++){
             neighbours[i]->setVisited(true);
             queue.insert(queue.end(), neighbours[i]);
@@ -112,4 +108,4 @@ std::vector<tuple<Tile, Tile>> breadth_first_search_optimized(Maze maze){
 
 
 
-#endif //HAUSARBEITWEGSUCHE_SEARCHALGORITHMS_HPP
+#endif
