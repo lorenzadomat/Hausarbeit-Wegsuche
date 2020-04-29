@@ -16,7 +16,6 @@ class Tile
     public:
         Tile();
         Tile(int pX, int pY, bool pTop, bool pRight, bool pBottom, bool pLeft);
-        ~Tile();
         bool getTop(){ return top;}
         bool getRight(){ return right;}
         bool getBottom(){ return bottom;}
