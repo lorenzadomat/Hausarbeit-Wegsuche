@@ -11,7 +11,7 @@ class Tile
         bool right;
         bool bottom;
         bool left;
-        bool visited = false;
+        bool visited;
         glm::vec4 color = glm::vec4(1, 1, 1, 0);
     public:
         Tile();
@@ -48,6 +48,7 @@ Tile::Tile(int pX, int pY ,bool pTop, bool pRight, bool pBottom, bool pLeft) {
     right = pRight;
     bottom = pBottom;
     left = pLeft;
+    visited = false;
 }
 void Tile::setValues(int pX, int pY, bool pTop, bool pRight, bool pBottom, bool pLeft) {
     x = pX;

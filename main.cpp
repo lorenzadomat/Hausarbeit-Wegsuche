@@ -1,10 +1,14 @@
+#define preventGUI
 #include "config.hpp"
 #include "Maze.hpp"
 #include "SearchAlgorithms.hpp"
 #include "Console.hpp"
-
 #include <vector>
 #include <tuple>
+
+#if gui == true
+    cout << "hallo"
+#endif
 
 Maze maze(2, 3, 0, columns - 1, rows -1);
 vector<tuple<Tile, Tile>> path, path1, path2;
@@ -87,3 +91,11 @@ void draw() {
 void destroy() {
 }
 
+#ifndef makeGUI
+int main(){
+    setup();
+    //draw();
+    //destroy();
+    return 0;
+}
+#endif

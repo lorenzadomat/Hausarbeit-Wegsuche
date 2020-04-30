@@ -1,24 +1,15 @@
-cmake_minimum_required(VERSION 3.15)
-project(HausarbeitWegsuche)
+cmake_minimum_required(VERSION 3.12)
+project(UnitTest)
 
-set(CMAKE_CXX_STANDARD 14)
+find_package(Boost COMPONENTS unit_test_framework REQUIRED)
+include_directories(${Boost_INCLUDE_DIRS})
 
-find_package(Boost 1.57.0 COMPONENTS system filesystem REQUIRED)
+set(CMAKE_CXX_STANDARD 11)
 
-if(Boost_FOUND)
-    message(STATUS "Boost_INCLUDE_DIRS: ${Boost_INCLUDE_DIRS}")
-    message(STATUS "Boost_LIBRARIES: ${Boost_LIBRARIES}")
-    message(STATUS "Boost_VERSION: ${Boost_VERSION}")
+add_executable(Wegsuche main.cpp)
+add_executable(unit UnitTests.cpp)
 
-    include_directories(${Boost_INCLUDE_DIRS})
-endif()
-
-add_executable(HausarbeitWegsuche main.cpp)
-add_executable(UnitTest UnitTests.cpp)
-
-if(Boost_FOUND)
-    target_link_libraries(UnitTest ${Boost_LIBRARIES})
-endif()
+target_link_libraries(unit ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY})
 
 enable_testing()
-add_test(NAME UnitTest COMMAND UnitTest)
+add_test(NAME unit COMMAND unit)
