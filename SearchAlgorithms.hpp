@@ -3,6 +3,7 @@
 #include <queue>
 #include <tuple>
 #include <cmath>
+#include <algorithm>
 #include "config.hpp"
 #include "Timer.hpp"
 #include "Console.hpp"
