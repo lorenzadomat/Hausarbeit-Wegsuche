@@ -33,7 +33,10 @@ class Tile
         void setBottom(bool value){bottom = value;}
         void setLeft(bool value){left = value;}
         void setValues(int pX, int pY, bool pTop, bool pRight, bool pBottom, bool pLeft);
-        void print();
+        friend ostream& operator<< (ostream &ostr, const Tile& t){
+            ostr << "x = " << static_cast<int>(t.x) / tileSize << "; y = " << static_cast<int>(t.y) / tileSize<< " | Top: " << static_cast<bool>(t.top) << " | Right: " << static_cast<bool>(t.right) << " | Bottom: " << static_cast<bool>(t.bottom) << " | Left: " << static_cast<bool>(t.left) << "\n";
+            return ostr;
+        }
 
     };
 Tile::Tile() {
@@ -53,10 +56,6 @@ void Tile::setValues(int pX, int pY, bool pTop, bool pRight, bool pBottom, bool 
     right = pRight;
     bottom = pBottom;
     left = pLeft;
-}
-
-void Tile::print() {
-    cout << "x = " << x / tileSize << "; y = " << y / tileSize<< " | Top: " << top << " | Right: " << right << " | Bottom: " << bottom << " | Left: " << left << "\n";
 }
 
 #endif

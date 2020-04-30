@@ -13,10 +13,12 @@ if(Boost_FOUND)
     include_directories(${Boost_INCLUDE_DIRS})
 endif()
 
-
 add_executable(HausarbeitWegsuche main.cpp)
-add_executable(Test test.cpp)
+add_executable(UnitTest UnitTests.cpp)
 
 if(Boost_FOUND)
-    target_link_libraries(HausarbeitWegsuche ${Boost_LIBRARIES})
+    target_link_libraries(UnitTest ${Boost_LIBRARIES})
 endif()
+
+enable_testing()
+add_test(NAME UnitTest COMMAND UnitTest)

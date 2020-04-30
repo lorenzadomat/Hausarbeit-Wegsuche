@@ -2,6 +2,7 @@
 #include "Maze.hpp"
 #include "SearchAlgorithms.hpp"
 #include "Console.hpp"
+
 #include <vector>
 #include <tuple>
 
@@ -79,7 +80,7 @@ void draw() {
             xd::line(start.getX() + tileSize / 2 + tileSize, start.getY() + tileSize / 2 + tileSize, end.getX() + tileSize / 2 + tileSize, end.getY() + tileSize / 2 + tileSize);
         }
     }
-    xd::noLoop();
+    //xd::noLoop();
 
 }
 
