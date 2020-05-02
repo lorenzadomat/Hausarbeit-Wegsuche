@@ -17,6 +17,7 @@ private:
     int endY;
     int numberOfCalls;
 public:
+    Maze(){};
     Maze(int maze, int pStartX, int pStartY, int pEndX, int pEndY);
     Tile* getTile(int pY, int pX);
     Tile* getStart();
@@ -164,6 +165,8 @@ void Maze::reset() {
 
 void Maze::exampleMaze1(){
     //TODO Leave out * tileSize
+    setStart(0, 3);
+    setEnd(4, 2);
     tiles[0][0].setValues(0 * tileSize , 0 * tileSize , false, false, false, false);
     tiles[0][1].setValues(1 * tileSize , 0 * tileSize , false, true, true, false);
     tiles[0][2].setValues(2 * tileSize , 0 * tileSize , false, false, false, true);
