@@ -1,3 +1,4 @@
+#define preventGUI
 #include "config.hpp"
 #include "Maze.hpp"
 #include "SearchAlgorithms.hpp"
@@ -27,7 +28,6 @@ void userInput(){
 }
 
 void setup() {
-    cout << "hallo"<<endl;
     userInput();
     xd::size(640, 680);
     printTableHeader();
@@ -87,3 +87,11 @@ void draw() {
 void destroy() {
 }
 
+#ifndef makeGUI
+int main(){
+    setup();
+    //draw();
+    //destroy();
+    return 0;
+}
+#endif

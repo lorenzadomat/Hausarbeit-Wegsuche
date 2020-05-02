@@ -28,9 +28,9 @@ bool sortByDistanceToEnd(Tile* i, Tile* j){
  * @param maze
  * @return
  */
-vector<tuple<Tile, Tile>> breadth_first_search(Maze maze){
+vector<tuple<Tile, Tile> > breadth_first_search(Maze maze){
     maze.reset();
-    vector<tuple<Tile, Tile>> finalPath;
+    vector<tuple<Tile, Tile> > finalPath;
     queue<Tile*> queue;
     Timer timer;
 
