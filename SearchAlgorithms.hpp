@@ -33,7 +33,6 @@ vector<tuple<Tile, Tile> > breadth_first_search(Maze maze){
     vector<tuple<Tile, Tile> > finalPath;
     queue<Tile*> queue;
     Timer timer;
-
     //Start Timer
     timer.start();
 

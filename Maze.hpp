@@ -20,6 +20,7 @@ private:
     int columns;
     int rows;
 public:
+    Maze(){};
     Maze(int maze, int pStartX, int pStartY, int pEndX, int pEndY, int pColumns, int pRows);
     Tile* getTile(int pY, int pX);
     Tile* getStart();
@@ -42,11 +43,13 @@ public:
 };
 
 Maze::Maze(int maze, int pStartX, int pStartY, int pEndX, int pEndY, int pColumns, int pRows) {
-    setStart(pStartY, pStartX);
-    setEnd(pEndY, pEndX);
+    startX = pStartX;
+    startY = pStartY;
+    endX = pEndX;
+    endY = pEndY;
     columns = pColumns;
     rows = pRows;
-    cout << "init" <<endl;
+
     if(maze == 0) {
         exampleMaze1();
     }else if(maze == 1){
@@ -163,8 +166,8 @@ vector<Tile*> Maze::getUnvisitedNeighbours(int pY, int pX) {
  */
 void Maze::reset() {
     numberOfCalls = 0;
-    for(int i = 0; i < rows; i++){
-        for(int j = 0; j < columns; j++){
+    for(int i = 0; i < tiles.size(); i++){
+        for(int j = 0; j < tiles[i].size(); j++){
             tiles[i][j].setVisited(false);
         }
     }
@@ -207,6 +210,9 @@ void Maze::exampleMaze1(){
             Tile(3 * tileSize , 4 * tileSize , true, false, false, true),
             Tile(4 * tileSize , 4 * tileSize , true, false, false, false)
     });
+
+    setStart(startY, startX);
+    setEnd(endY, endX);
 }
 
 void Maze::exampleMaze2() {
@@ -265,6 +271,8 @@ void Maze::genRandomMaze() {
         tiles[randY][randX].setLeft(true);
         getLeftNeighbour(randY, randX)->setRight(true);
     }
+    setStart(startY, startX);
+    setEnd(endY, endX);
 }
 
 #endif

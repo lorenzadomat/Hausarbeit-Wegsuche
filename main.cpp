@@ -6,7 +6,7 @@
 #include <vector>
 #include <tuple>
 
-Maze maze(0, 3, 0, 9, 9, 10, 10);
+Maze maze(2, 3, 0, 4, 4, 5, 5);
 vector<tuple<Tile, Tile>> path, path1, path2;
 string algorithm = "Breitensuche";
 
