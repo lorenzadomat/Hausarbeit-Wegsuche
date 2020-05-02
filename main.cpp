@@ -5,7 +5,7 @@
 #include <vector>
 #include <tuple>
 
-Maze maze(2, 3, 0, columns - 1, rows -1);
+Maze maze(0, 3, 0, 9, 9, 10, 10);
 vector<tuple<Tile, Tile>> path, path1, path2;
 string algorithm = "Breitensuche";
 
@@ -27,6 +27,7 @@ void userInput(){
 }
 
 void setup() {
+    cout << "hallo"<<endl;
     userInput();
     xd::size(640, 680);
     printTableHeader();
@@ -42,9 +43,9 @@ void setup() {
 void draw() {
     // Draw Labyrinth
     xd::fill(glm::vec4(1, 1, 1, 1));
-    xd::rect(0, 0, tileSize * (rows + 2), tileSize * (columns + 2));
-    for(int x = 0; x < rows ; x++){
-        for(int y = 0; y < columns; y++){
+    xd::rect(0, 0, tileSize * (maze.getRows() + 2), tileSize * (maze.getColumns() + 2));
+    for(int x = 0; x < maze.getRows() ; x++){
+        for(int y = 0; y < maze.getColumns(); y++){
             if(maze.getTile(y, x)) {
                 Tile* tile = maze.getTile(y, x);
                 int xStart = tile->getX() + tileSize;

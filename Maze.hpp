@@ -10,17 +10,22 @@ using namespace std;
 class Maze
 {
 private:
-    Tile tiles[rows][columns]; //TODO Überlegen als Datentyp vector zu benutzten
+    vector<vector<Tile>> tiles;
+    //Tile tiles[rows][columns]; //TODO Überlegen als Datentyp vector zu benutzten
     int startX;
     int startY;
     int endX;
     int endY;
     int numberOfCalls;
+    int columns;
+    int rows;
 public:
-    Maze(int maze, int pStartX, int pStartY, int pEndX, int pEndY);
+    Maze(int maze, int pStartX, int pStartY, int pEndX, int pEndY, int pColumns, int pRows);
     Tile* getTile(int pY, int pX);
     Tile* getStart();
     Tile* getEnd();
+    int getRows(){return rows;}
+    int getColumns(){return columns;}
     Tile* getTopNeighbour(int pY, int pX);
     Tile* getRightNeighbour(int pY, int pX);
     Tile* getBottomNeighbour(int pY, int pX);
@@ -36,9 +41,12 @@ public:
     void setEnd(int pY, int pX);
 };
 
-Maze::Maze(int maze, int pStartX, int pStartY, int pEndX, int pEndY) {
+Maze::Maze(int maze, int pStartX, int pStartY, int pEndX, int pEndY, int pColumns, int pRows) {
     setStart(pStartY, pStartX);
     setEnd(pEndY, pEndX);
+    columns = pColumns;
+    rows = pRows;
+    cout << "init" <<endl;
     if(maze == 0) {
         exampleMaze1();
     }else if(maze == 1){
@@ -164,31 +172,41 @@ void Maze::reset() {
 
 void Maze::exampleMaze1(){
     //TODO Leave out * tileSize
-    tiles[0][0].setValues(0 * tileSize , 0 * tileSize , false, false, false, false);
-    tiles[0][1].setValues(1 * tileSize , 0 * tileSize , false, true, true, false);
-    tiles[0][2].setValues(2 * tileSize , 0 * tileSize , false, false, false, true);
-    tiles[0][3].setValues(3 * tileSize , 0 * tileSize , false, true, true, false);
-    tiles[0][4].setValues(4 * tileSize , 0 * tileSize , false, false, false, true);
-    tiles[1][0].setValues(0 * tileSize , 1 * tileSize , false, true, false, false);
-    tiles[1][1].setValues(1 * tileSize , 1 * tileSize , true, false, true, true);
-    tiles[1][2].setValues(2 * tileSize , 1 * tileSize , false, true, true, false);
-    tiles[1][3].setValues(3 * tileSize , 1 * tileSize , true, true, false, true);
-    tiles[1][4].setValues(4 * tileSize , 1 * tileSize , false, false, false, true);
-    tiles[2][0].setValues(0 * tileSize , 2 * tileSize , false, false, true, false);
-    tiles[2][1].setValues(1 * tileSize , 2 * tileSize , true, true, true, false);
-    tiles[2][2].setValues(2 * tileSize , 2 * tileSize , true, true, true, true);
-    tiles[2][3].setValues(3 * tileSize , 2 * tileSize , false, true, false, true);
-    tiles[2][4].setValues(4 * tileSize , 2 * tileSize , false, false, true, true);
-    tiles[3][0].setValues(0 * tileSize , 3 * tileSize , true, true, false, false);
-    tiles[3][1].setValues(1 * tileSize , 3 * tileSize , true, true, true, true);
-    tiles[3][2].setValues(2 * tileSize , 3 * tileSize , true, false, true, true);
-    tiles[3][3].setValues(3 * tileSize , 3 * tileSize , false, true, true, false);
-    tiles[3][4].setValues(4 * tileSize , 3 * tileSize , true, false, true, true);
-    tiles[4][0].setValues(0 * tileSize , 4 * tileSize , false, true, false, false);
-    tiles[4][1].setValues(1 * tileSize , 4 * tileSize , true, false, false, true);
-    tiles[4][2].setValues(2 * tileSize , 4 * tileSize , true, true, false, false);
-    tiles[4][3].setValues(3 * tileSize , 4 * tileSize , true, false, false, true);
-    tiles[4][4].setValues(4 * tileSize , 4 * tileSize , true, false, false, false);
+    tiles.insert(tiles.end(), vector<Tile>{
+        Tile(0 * tileSize , 0 * tileSize , false, false, false, false),
+        Tile(1 * tileSize , 0 * tileSize , false, true, true, false),
+        Tile(2 * tileSize , 0 * tileSize , false, false, false, true),
+        Tile(3 * tileSize , 0 * tileSize , false, true, true, false),
+        Tile(4 * tileSize , 0 * tileSize , false, false, false, true)
+    });
+    tiles.insert(tiles.end(), vector<Tile>{
+            Tile(0 * tileSize , 1 * tileSize , false, true, false, false),
+            Tile(1 * tileSize , 1 * tileSize , true, false, true, true),
+            Tile(2 * tileSize , 1 * tileSize , false, true, true, false),
+            Tile(3 * tileSize , 1 * tileSize , true, true, false, true),
+            Tile(4 * tileSize , 1 * tileSize , false, false, false, true)
+    });
+    tiles.insert(tiles.end(), vector<Tile>{
+            Tile(0 * tileSize , 2 * tileSize , false, false, true, false),
+            Tile(1 * tileSize , 2 * tileSize , true, true, true, false),
+            Tile(2 * tileSize , 2 * tileSize , true, true, true, true),
+            Tile(3 * tileSize , 2 * tileSize , false, true, false, true),
+            Tile(4 * tileSize , 2 * tileSize , false, false, true, true)
+    });
+    tiles.insert(tiles.end(), vector<Tile>{
+            Tile(0 * tileSize , 3 * tileSize , true, true, false, false),
+            Tile(1 * tileSize , 3 * tileSize , true, true, true, true),
+            Tile(2 * tileSize , 3 * tileSize , true, false, true, true),
+            Tile(3 * tileSize , 3 * tileSize , false, true, true, false),
+            Tile(4 * tileSize , 3 * tileSize , true, false, true, true)
+    });
+    tiles.insert(tiles.end(), vector<Tile>{
+            Tile(0 * tileSize , 4 * tileSize , false, true, false, false),
+            Tile(1 * tileSize , 4 * tileSize , true, false, false, true),
+            Tile(2 * tileSize , 4 * tileSize , true, true, false, false),
+            Tile(3 * tileSize , 4 * tileSize , true, false, false, true),
+            Tile(4 * tileSize , 4 * tileSize , true, false, false, false)
+    });
 }
 
 void Maze::exampleMaze2() {
@@ -196,9 +214,11 @@ void Maze::exampleMaze2() {
 }
 void Maze::genRandomMaze() {
     for(int y = 0; y < rows; y++){
+        vector<Tile> row;
         for(int x = 0; x < columns; x++){
-            tiles[y][x].setValues(x * tileSize , y * tileSize , false, false, false, false);
+            row.insert(row.end(), Tile(x * tileSize , y * tileSize , false, false, false, false));
         }
+        tiles.insert(tiles.end(), row);
     }
 
     stack<Tile*> stack;

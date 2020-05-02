@@ -18,8 +18,6 @@
     #include "libxd-0.3.2-win32/include/glm/glm.hpp"
 #endif
 
-#define rows 50
-#define columns 50
 #define tileSize 15
 
 using namespace std;
