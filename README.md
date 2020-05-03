@@ -1,5 +1,7 @@
 # Hausarbeit Wegsuche
 
+![Example](./Images/example1.png "Maze Example")
+
 ## Compiling GUI
 To draw the maze, c++ makes use of libxd:
 https://bernhardfritz.github.io/libxd/#/
