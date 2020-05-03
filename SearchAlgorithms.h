@@ -4,23 +4,23 @@
 #include <tuple>
 #include <cmath>
 #include <algorithm>
-#include "config.hpp"
-#include "Timer.hpp"
-#include "Console.hpp"
-#ifndef HAUSARBEITWEGSUCHE_SEARCHALGORITHMS_HPP
-#define HAUSARBEITWEGSUCHE_SEARCHALGORITHMS_HPP
+#include "config.h"
+#include "Utils/Timer.cpp"
+#include "Utils/Console.h"
+#ifndef SEARCHALGORITHMS_H
+#define SEARCHALGORITHMS_H
 
-int curX = 0;
-int curY = 0;
+int curEndX = 0;
+int curEndY = 0;
 
-double distanceToPoint(int startY, int startX, int endY, int endX){
-    return sqrt(pow(endX - startX, 2) + pow(endY - startY, 2) );
+double distanceToPoint(int startY, int startX, int pEndY, int pEndX){
+    return sqrt(pow(pEndX - startX, 2) + pow(pEndY - startY, 2) );
 }
 
 bool sortByDistanceToEnd(Tile* i, Tile* j){
-    double iDist = distanceToPoint(i->getY(), i->getX(), curY, curX);
-    double jDist = distanceToPoint(j->getY(), j->getX(), curY, curX);
-    return iDist > jDist;
+    double iDist = distanceToPoint(i->getY(), i->getX(), curEndY, curEndX);
+    double jDist = distanceToPoint(j->getY(), j->getX(), curEndY, curEndX);
+    return iDist < jDist;
 }
 
 /**
@@ -28,12 +28,11 @@ bool sortByDistanceToEnd(Tile* i, Tile* j){
  * @param maze
  * @return
  */
-vector<tuple<Tile, Tile>> breadth_first_search(Maze maze){
+vector<tuple<Tile, Tile> > breadth_first_search(Maze maze){
     maze.reset();
-    vector<tuple<Tile, Tile>> finalPath;
+    vector<tuple<Tile, Tile> > finalPath;
     queue<Tile*> queue;
     Timer timer;
-
     //Start Timer
     timer.start();
 
@@ -78,12 +77,15 @@ vector<tuple<Tile, Tile>> breadth_first_search_optimized(Maze maze){
     //Start Timer
     timer.start();
 
+    curEndX = maze.getEnd()->getX();
+    curEndY = maze.getEnd()->getY();
     //Start Algorithm
     maze.getStart()->setVisited(true);
     queue.insert(queue.end(), maze.getStart());
     bool found = false;
     while(queue.size() > 0 || found){
         sort(queue.begin(), queue.end(), sortByDistanceToEnd);
+        //TODO Maybe self implemented insertion sort is quicker
         Tile* tile = queue.front();
         if(tile == maze.getEnd()){
             found = true;

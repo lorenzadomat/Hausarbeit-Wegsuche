@@ -1,13 +1,22 @@
-#include "config.hpp"
-#include "Maze.hpp"
-#include "SearchAlgorithms.hpp"
-#include "Console.hpp"
+#include "config.h"
+#include "Maze.cpp"
+#include "SearchAlgorithms.h"
+#include "Utils/Console.h"
 #include <vector>
 #include <tuple>
 
-Maze maze(2, 3, 0, columns - 1, rows -1);
+Maze maze;
 vector<tuple<Tile, Tile>> path, path1, path2;
-string algorithm = "Breitensuche";
+int pathWidth = 0;
+int algorithmNo = -1;
+int mazeNo = -1;
+int columns = -1;
+int rows = -1;
+int startX = -1;
+int startY = -1;
+int endX = -1;
+int endY = -1;
+bool drawInSteps = false;
 
 void benchmark(){
     path1 = breadth_first_search(maze);
@@ -20,6 +29,92 @@ void benchmark(){
 }
 
 void userInput(){
+    string input;
+    //TODO Input validation
+    while(mazeNo == -1) {
+        printMazeOptions();
+        cin >> input;
+        if (input == "Example1" || input == "0") {
+            mazeNo = 0;
+            columns = 5;
+            rows = 5;
+            startX = 3;
+            startY = 0;
+            endX = 1;
+            endY = 4;
+            break;
+        } else if (input == "Example2" || input == "1") {
+            mazeNo = 1;
+            break;
+        } else if (input == "Random" || input == "2") {
+            mazeNo = 2;
+            break;
+        } else {
+            cout << "\033[1;31mInvalid Input\033[0m" << endl;
+        }
+    }
+    cout << endl;
+    if(mazeNo == 2){
+        while(columns < 0 || rows < 0){
+            cout << "Enter the number of rows";
+            cout << endl;
+            cout << "Rows = ";
+            cin >> rows;
+            cout << "Enter the number of columns";
+            cout << endl;
+            cout << "Columns = ";
+            cin >> columns;
+        }
+        while(startX < 0 || startY < 0 || endX < 0 || endY < 0 || startX > columns || startY > rows || endX > columns || endY > rows) {
+            cout << "Enter a Start-Point";
+            cout << endl;
+            cout << "x = ";
+            cin >> startX;
+            cout << "y = ";
+            cin >> startY;
+            cout << "Enter an End-Point";
+            cout << endl;
+            cout << "x = ";
+            cin >> endX;
+            cout << "y = ";
+            cin >> endY;
+        }
+    }
+    cout << endl;
+    while(algorithmNo == -1) {
+        printAlgorithmOptions();
+        cin >> input;
+        if (input == "Breitensuche" || input == "0") {
+            algorithmNo = 0;
+            break;
+        } else if (input == "Breitensuche2" || input == "1") {
+            algorithmNo = 1;
+            break;
+        } else if (input == "Dijkstra" || input == "2") {
+            algorithmNo = 2;
+            break;
+        } else if (input == "Benchmark" || input == "3") {
+            algorithmNo = 3;
+            break;
+        } else if (input == "Exit" || input == "exit") {
+            mazeNo = -1;
+            algorithmNo = -1;
+            userInput();
+            return;
+        } else {
+            cout << "\033[1;31mInvalid Input\033[0m" << endl;
+        }
+    }
+
+    cout << endl;
+    cout << "Draw in Steps? (Y / N): ";
+    cin >> input;
+    if(input == "Y" || input == "y"){
+        drawInSteps = true;
+    }
+
+
+
 
     // Select one mazes
     // If it´s a random Maze, ask for column and row length
@@ -28,23 +123,29 @@ void userInput(){
 
 void setup() {
     userInput();
-    xd::size(640, 680);
+    maze = Maze(mazeNo, startX, startY, endX, endY, columns, rows);
+    xd::size(1200, 900);
     printTableHeader();
-    if(algorithm == "Breitensuche"){
+    if(algorithmNo == 0){
         path = breadth_first_search(maze);
-    }else if (algorithm == "Breitensuche2"){
+    }else if (algorithmNo == 1){
         path = breadth_first_search_optimized(maze);
-    }else if (algorithm == "Benchmark"){
+    }else if (algorithmNo == 2){
+
+    }else if (algorithmNo == 3){
         benchmark();
+    }
+    if(!drawInSteps){
+        pathWidth = path.size();
     }
 }
 
 void draw() {
     // Draw Labyrinth
     xd::fill(glm::vec4(1, 1, 1, 1));
-    xd::rect(0, 0, tileSize * (rows + 2), tileSize * (columns + 2));
-    for(int x = 0; x < rows ; x++){
-        for(int y = 0; y < columns; y++){
+    xd::rect(0, 0, tileSize * (maze.getRows() + 2), tileSize * (maze.getColumns() + 2));
+    for(int x = 0; x < maze.getRows() ; x++){
+        for(int y = 0; y < maze.getColumns(); y++){
             if(maze.getTile(y, x)) {
                 Tile* tile = maze.getTile(y, x);
                 int xStart = tile->getX() + tileSize;
@@ -72,17 +173,30 @@ void draw() {
     // Draw path
     xd::strokeWeight(1);
     xd::stroke(glm::vec4(1.0f, 0.8f, 0.1f, 1.0f));
+
     if(path.size() > 0){
-        for(int i = 0; i < path.size() - 1; i++){
+        if(pathWidth <= path.size()){
+            pathWidth++;
+        }else{
+            xd::noLoop();
+        }
+        for(int i = 0; i < pathWidth; i++){
             Tile start = get<0>(path[i]);
             Tile end = get<1>(path[i]);;
             xd::line(start.getX() + tileSize / 2 + tileSize, start.getY() + tileSize / 2 + tileSize, end.getX() + tileSize / 2 + tileSize, end.getY() + tileSize / 2 + tileSize);
         }
     }
-    xd::noLoop();
 
 }
 
 void destroy() {
 }
 
+#ifndef makeGUI
+int main(){
+    setup();
+    //draw();
+    //destroy();
+    return 0;
+}
+#endif
