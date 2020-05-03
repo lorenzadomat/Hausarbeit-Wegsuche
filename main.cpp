@@ -107,11 +107,14 @@ void userInput(){
     }
 
     cout << endl;
-    cout << "Draw in Steps? (Y / N): ";
-    cin >> input;
-    if(input == "Y" || input == "y"){
-        drawInSteps = true;
-    }
+    #ifdef makeGUI
+        cout << "Draw in Steps? (Y / N): ";
+        cin >> input;
+        if(input == "Y" || input == "y"){
+            drawInSteps = true;
+        }
+    #endif
+    
 
 
 

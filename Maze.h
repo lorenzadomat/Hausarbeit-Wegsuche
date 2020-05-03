@@ -3,6 +3,7 @@
 
 #include "config.h"
 #include "Tile.h"
+#include <vector>
 
 class Maze
 {
