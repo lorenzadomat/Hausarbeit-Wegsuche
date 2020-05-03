@@ -1,8 +1,7 @@
-#define preventGUI
-#include "config.hpp"
-#include "Maze.hpp"
-#include "SearchAlgorithms.hpp"
-#include "Console.hpp"
+#include "config.h"
+#include "Maze.cpp"
+#include "SearchAlgorithms.h"
+#include "Utils/Console.h"
 #include <vector>
 #include <tuple>
 
@@ -11,10 +10,12 @@ vector<tuple<Tile, Tile>> path, path1, path2;
 int pathWidth = 0;
 int algorithmNo = -1;
 int mazeNo = -1;
-int startX = 0;
-int startY = 0;
-int endX = columns - 1;
-int endY = columns - 1;
+int columns = -1;
+int rows = -1;
+int startX = -1;
+int startY = -1;
+int endX = -1;
+int endY = -1;
 bool drawInSteps = false;
 
 void benchmark(){
@@ -35,6 +36,12 @@ void userInput(){
         cin >> input;
         if (input == "Example1" || input == "0") {
             mazeNo = 0;
+            columns = 5;
+            rows = 5;
+            startX = 3;
+            startY = 0;
+            endX = 1;
+            endY = 4;
             break;
         } else if (input == "Example2" || input == "1") {
             mazeNo = 1;
@@ -48,18 +55,30 @@ void userInput(){
     }
     cout << endl;
     if(mazeNo == 2){
-        cout << "Enter a Start-Point";
-        cout << endl;
-        cout << "x = ";
-        cin >> startX;
-        cout << "y = ";
-        cin >> startY;
-        cout << "Enter an End-Point";
-        cout << endl;
-        cout << "x = ";
-        cin >> endX;
-        cout << "y = ";
-        cin >> endY;
+        while(columns < 0 || rows < 0){
+            cout << "Enter the number of rows";
+            cout << endl;
+            cout << "Rows = ";
+            cin >> rows;
+            cout << "Enter the number of columns";
+            cout << endl;
+            cout << "Columns = ";
+            cin >> columns;
+        }
+        while(startX < 0 || startY < 0 || endX < 0 || endY < 0 || startX > columns || startY > rows || endX > columns || endY > rows) {
+            cout << "Enter a Start-Point";
+            cout << endl;
+            cout << "x = ";
+            cin >> startX;
+            cout << "y = ";
+            cin >> startY;
+            cout << "Enter an End-Point";
+            cout << endl;
+            cout << "x = ";
+            cin >> endX;
+            cout << "y = ";
+            cin >> endY;
+        }
     }
     cout << endl;
     while(algorithmNo == -1) {
@@ -104,8 +123,8 @@ void userInput(){
 
 void setup() {
     userInput();
-    maze = Maze(mazeNo, startX, startY, endX, endY);
-    xd::size(640, 680);
+    maze = Maze(mazeNo, startX, startY, endX, endY, columns, rows);
+    xd::size(1200, 900);
     printTableHeader();
     if(algorithmNo == 0){
         path = breadth_first_search(maze);
@@ -156,7 +175,7 @@ void draw() {
     xd::stroke(glm::vec4(1.0f, 0.8f, 0.1f, 1.0f));
 
     if(path.size() > 0){
-        if(pathWidth < path.size()){
+        if(pathWidth <= path.size()){
             pathWidth++;
         }else{
             xd::noLoop();

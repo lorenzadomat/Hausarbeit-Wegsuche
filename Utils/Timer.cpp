@@ -1,16 +1,9 @@
-#include <chrono>
 #ifndef HAUSARBEITWEGSUCHE_TIMER_HPP
 #define HAUSARBEITWEGSUCHE_TIMER_HPP
 
-class Timer{
-    private:
-        std::chrono::steady_clock::time_point startTime;
-        std::chrono::steady_clock::time_point endTime;
-    public:
-        void start();
-        void stop();
-        float getDuration();
-    };
+#include "Timer.h"
+#include <chrono>
+
 void Timer::start() {
     startTime = std::chrono::steady_clock::now();
 }

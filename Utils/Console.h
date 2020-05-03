@@ -1,6 +1,7 @@
+#ifndef CONSOLE_H
+#define CONSOLE_H
+
 #include <iomanip>
-#ifndef HAUSARBEITWEGSUCHE_CONSOLE_HPP
-#define HAUSARBEITWEGSUCHE_CONSOLE_HPP
 
 const char seperator = ' ';
 const int algoWidth = 20;
@@ -54,7 +55,7 @@ void printMazeOptions(){
     cout << "|";
     cout << left << std::setw(mazeWidth) << setfill(seperator) << "\tRandom Maze";
     cout << left << endl;
-    
+
     cout << "Please select a maze: ";
 }
 

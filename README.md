@@ -14,7 +14,7 @@ Open the libxd root directory
 #### Compiling
 
 ```bash
-g++ -std=c++11 ../main.cpp -o sketch -Iinclude -Llib -lxd -lglad -lglfw3 -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
+g++ -std=c++11 ../main.cpp -o sketch -D"makeGUI" -Iinclude -Llib -lxd -lglad -lglfw3 -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
 ```
 Start compiled file
 ```bash
@@ -28,12 +28,15 @@ Start compiled file
 
 #### Compiling
 ```bash
-g++ -std=c++11 ../main.cpp -o sketch -Iinclude -Llib -lxd -lglad -lglfw3 -framework Cocoa -framework IOKit -framework CoreFoundation -framework CoreVideo
+g++ -std=c++11 ../main.cpp -o sketch -D"makeGUI" -Iinclude -Llib -lxd -lglad -lglfw3 -framework Cocoa -framework IOKit -framework CoreFoundation -framework CoreVideo
 ```
 Start compiled file
 ```bash
 ./sketch
 ```
+
+## Unit-Tests
+To start Unit-Tests, please install the c++ boost framework.
 
 # TODO
 

@@ -1,9 +1,9 @@
 #define BOOST_TEST_MODULE Wegsuche
 #include <boost/test/unit_test.hpp>
-#include "Timer.hpp"
-#include "Tile.hpp"
-#include "Maze.hpp"
-#include "SearchAlgorithms.hpp"
+#include "Utils/Timer.cpp"
+#include "Tile.cpp"
+#include "Maze.cpp"
+#include "SearchAlgorithms.h"
 
 
 BOOST_AUTO_TEST_CASE( init ){

@@ -4,11 +4,11 @@
 #include <tuple>
 #include <cmath>
 #include <algorithm>
-#include "config.hpp"
-#include "Timer.hpp"
-#include "Console.hpp"
-#ifndef HAUSARBEITWEGSUCHE_SEARCHALGORITHMS_HPP
-#define HAUSARBEITWEGSUCHE_SEARCHALGORITHMS_HPP
+#include "config.h"
+#include "Utils/Timer.cpp"
+#include "Utils/Console.h"
+#ifndef SEARCHALGORITHMS_H
+#define SEARCHALGORITHMS_H
 
 int curEndX = 0;
 int curEndY = 0;
@@ -85,6 +85,7 @@ vector<tuple<Tile, Tile>> breadth_first_search_optimized(Maze maze){
     bool found = false;
     while(queue.size() > 0 || found){
         sort(queue.begin(), queue.end(), sortByDistanceToEnd);
+        //TODO Maybe self implemented insertion sort is quicker
         Tile* tile = queue.front();
         if(tile == maze.getEnd()){
             found = true;

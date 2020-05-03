@@ -1,5 +1,5 @@
-#ifndef HAUSARBEITWEGSUCHE_CONFIG_HPP
-#define HAUSARBEITWEGSUCHE_CONFIG_HPP
+#ifndef CONFIG_H
+#define CONFIG_H
 
 #include <iostream>
 #ifdef makeGUI
