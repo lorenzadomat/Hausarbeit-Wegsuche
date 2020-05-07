@@ -147,8 +147,8 @@ void draw() {
     // Draw Labyrinth
     xd::fill(glm::vec4(1, 1, 1, 1));
     xd::rect(0, 0, tileSize * (maze.getRows() + 2), tileSize * (maze.getColumns() + 2));
-    for(int x = 0; x < maze.getRows() ; x++){
-        for(int y = 0; y < maze.getColumns(); y++){
+    for(int x = 0; x < maze.getColumns() ; x++){
+        for(int y = 0; y < maze.getRows(); y++){
             if(maze.getTile(y, x)) {
                 Tile* tile = maze.getTile(y, x);
                 int xStart = tile->getX() + tileSize;

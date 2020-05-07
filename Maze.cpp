@@ -25,7 +25,7 @@ Maze::Maze(int maze, int pStartX, int pStartY, int pEndX, int pEndY, int pColumn
 }
 
 Tile* Maze::getTile(int pY, int pX) {
-    if(pX >= 0 && pX < rows && pY >= 0 && pY < columns){
+    if(pX >= 0 && pX < columns && pY >= 0 && pY < rows){
         numberOfCalls+=1;
         return &tiles[pY][pX];
     }
