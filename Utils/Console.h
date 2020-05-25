@@ -21,7 +21,7 @@ void printTableHeader(){
     cout << endl;
 }
 void printTableRow(string algorithm, float duration, int calls){
-    string strDuration = std::to_string(std::lroundf(duration) / 1000000) + "ms";
+    string strDuration = std::to_string(std::lroundf(duration) / 1) + "ns";
     string tab = "\t";
     cout << left << std::setw(algoWidth) << setfill(seperator) << algorithm;
     cout << "|";

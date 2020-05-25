@@ -1,12 +1,15 @@
 #include "config.h"
 #include "Maze.cpp"
-#include "SearchAlgorithms.h"
+#include "Breadth_First_Search.cpp"
+#include "Breadth_First_Search_Optimized.cpp"
+#include "Depth_First_Search.cpp"
+#include "Dijkstra_Algorithm.cpp"
 #include "Utils/Console.h"
 #include <vector>
 #include <tuple>
 
 Maze maze;
-vector<tuple<Tile, Tile>> path, path1, path2;
+vector<tuple<Tile, Tile>> path;
 int pathWidth = 0;
 int algorithmNo = -1;
 int mazeNo = -1;
@@ -17,16 +20,6 @@ int startY = -1;
 int endX = -1;
 int endY = -1;
 bool drawInSteps = false;
-
-void benchmark(){
-    path1 = breadth_first_search(maze);
-    path2 = breadth_first_search_optimized(maze);
-    if(path1.size() <= path2.size()){
-        path = path1;
-    }else{
-        path = path2;
-    }
-}
 
 void userInput(){
     string input;
@@ -130,13 +123,16 @@ void setup() {
     xd::size(1200, 900);
     printTableHeader();
     if(algorithmNo == 0){
-        path = breadth_first_search(maze);
+        Breadth_First_Search algorithm = Breadth_First_Search();
+        path = algorithm.findPath(maze);
     }else if (algorithmNo == 1){
-        path = breadth_first_search_optimized(maze);
+        Breadth_First_Search_Optimized algorithm = Breadth_First_Search_Optimized();
+        path = algorithm.findPath(maze);
     }else if (algorithmNo == 2){
-
+        Dijkstra_Algorithm algorithm = Dijkstra_Algorithm();
+        path = algorithm.findPath(maze);
     }else if (algorithmNo == 3){
-        benchmark();
+        //benchmark(maze);
     }
     if(!drawInSteps){
         pathWidth = path.size();
@@ -146,7 +142,7 @@ void setup() {
 void draw() {
     // Draw Labyrinth
     xd::fill(glm::vec4(1, 1, 1, 1));
-    xd::rect(0, 0, tileSize * (maze.getRows() + 2), tileSize * (maze.getColumns() + 2));
+    xd::rect(0, 0, tileSize * (maze.getColumns() + 2), tileSize * (maze.getRows() + 2));
     for(int x = 0; x < maze.getColumns() ; x++){
         for(int y = 0; y < maze.getRows(); y++){
             if(maze.getTile(y, x)) {
@@ -185,7 +181,7 @@ void draw() {
         }
         for(int i = 0; i < pathWidth; i++){
             Tile start = get<0>(path[i]);
-            Tile end = get<1>(path[i]);;
+            Tile end = get<1>(path[i]);
             xd::line(start.getX() + tileSize / 2 + tileSize, start.getY() + tileSize / 2 + tileSize, end.getX() + tileSize / 2 + tileSize, end.getY() + tileSize / 2 + tileSize);
         }
     }

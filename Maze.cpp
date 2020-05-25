@@ -222,7 +222,7 @@ void Maze::genRandomMaze() {
     /**
      * Optional Part
      */
-    for(int y = 1; y < rows * 5; y++){
+    for(int y = 1; y < rows; y++){
         int randY = rand() % (rows - 2) + 1;
         int randX = rand() % (columns - 2) + 1;
 
