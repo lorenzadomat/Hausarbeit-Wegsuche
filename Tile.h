@@ -11,6 +11,8 @@ private:
     bool bottom;
     bool left;
     bool visited;
+    int distance;
+    Tile* predecessor;
     glm::vec4 color = glm::vec4(1, 1, 1, 0);
 public:
     Tile();
@@ -21,8 +23,12 @@ public:
     bool getLeft(){ return left;}
     int getX(){return x;}
     int getY(){return y;}
+    int getDistance() { return distance; }
+    Tile* getPredecessor() { return predecessor; }
     glm::vec4 getColor(){return color;}
     bool isVisited(){ return visited;}
+    void setDistance(int pDistance);
+    void setPredecessor(Tile* pPred);
     void setColor(glm::vec4 pColor){color = pColor;}
     void setVisited(bool value){ visited = value;}
     void setX(int pX){x = pX;}

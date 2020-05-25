@@ -24,4 +24,12 @@ void Tile::setValues(int pX, int pY, bool pTop, bool pRight, bool pBottom, bool 
     left = pLeft;
 }
 
+void Tile::setDistance(int pDistance) {
+    distance = pDistance;
+}
+
+void Tile::setPredecessor(Tile* pPred) {
+    predecessor = pPred;
+}
+
 #endif
