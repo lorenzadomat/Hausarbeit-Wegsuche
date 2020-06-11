@@ -231,20 +231,13 @@ void draw() {
     xd::strokeWeight(1);
     for(int j = 0; j < paths.size(); j++) {
         vector<tuple<Tile, Tile>> path = paths.at(j);
-        xd::stroke(glm::vec4((j+1) * 0.1f, 0.8f, 0.1f, 1.0f));
+        xd::stroke(glm::vec4((j+1) * 0.1f, pow(j, 2) * 0.05f, pow(j,3) * 0.01f, 1.0f));
 
-        if (path.size() > 0) {
-            if (pathWidth <= path.size()) {
-                pathWidth++;
-            } else {
-                xd::noLoop();
-            }
-            for (int i = 0; i < pathWidth; i++) {
-                Tile start = get<0>(path[i]);
-                Tile end = get<1>(path[i]);
-                xd::line(start.getX() + tileSize / 2 + tileSize, start.getY() + tileSize / 2 + tileSize,
-                         end.getX() + tileSize / 2 + tileSize, end.getY() + tileSize / 2 + tileSize);
-            }
+        for (int i = 0; i < path.size(); i++) {
+            Tile start = get<0>(path[i]);
+            Tile end = get<1>(path[i]);
+            xd::line(start.getX() + tileSize / 2 + tileSize + (j*3 * pow(-1, j)), start.getY() + tileSize / 2 + tileSize + (j*3 * pow(-1, j)),
+                     end.getX() + tileSize / 2 + tileSize + (j*3 * pow(-1, j)), end.getY() + tileSize / 2 + tileSize + (j*3 * pow(-1, j)));
         }
     }
 
