@@ -3,13 +3,14 @@
 #include "Breadth_First_Search.cpp"
 #include "Breadth_First_Search_Optimized.cpp"
 #include "Depth_First_Search.cpp"
+#include "Depth_First_Search_Optimized.cpp"
 #include "Dijkstra_Algorithm.cpp"
 #include "Utils/Console.h"
 #include <vector>
 #include <tuple>
 
 Maze maze;
-vector<tuple<Tile, Tile>> path;
+vector<vector<tuple<Tile, Tile>>> paths;
 int pathWidth = 0;
 int algorithmNo = -1;
 int mazeNo = -1;
@@ -22,10 +23,11 @@ int endY = -1;
 bool drawInSteps = false;
 
 void benchmark(Maze maze){
-    Breadth_First_Search().findPath(maze);
-    Breadth_First_Search_Optimized().findPath(maze);
-    Depth_First_Search().findPath(maze);
-    path = Dijkstra_Algorithm().findPath(maze);
+    paths.insert(paths.begin(), Breadth_First_Search().findPath(maze));
+    paths.insert(paths.begin(), Breadth_First_Search_Optimized().findPath(maze));
+    paths.insert(paths.begin(), Depth_First_Search().findPath(maze));
+    paths.insert(paths.begin(), Depth_First_Search_Optimized().findPath(maze));
+    paths.insert(paths.begin(), Dijkstra_Algorithm().findPath(maze));
 }
 
 void userInput(){
@@ -116,7 +118,7 @@ void userInput(){
             algorithmNo = 0;
             break;
         }
-        else if (input == "Breitensuche2" || input == "1") {
+        else if (input == "Breitensuche_Opt" || input == "1") {
             algorithmNo = 1;
             break;
         }
@@ -124,12 +126,16 @@ void userInput(){
             algorithmNo = 2;
             break;
         }
-        else if (input == "Dijkstra" || input == "3") {
+        else if (input == "Tiefensuche_Opt" || input == "3") {
             algorithmNo = 3;
             break;
         }
-        else if (input == "Benchmark" || input == "4") {
+        else if (input == "Dijkstra" || input == "4") {
             algorithmNo = 4;
+            break;
+        }
+        else if (input == "Benchmark" || input == "5") {
+            algorithmNo = 5;
             break;
         } else if (input == "Exit" || input == "exit") {
             mazeNo = -1;
@@ -165,26 +171,29 @@ void setup() {
     xd::size(1200, 900);
     printTableHeader();
     if(algorithmNo == 0){
-        Breadth_First_Search algorithm = Breadth_First_Search();
-        path = algorithm.findPath(maze);
+        paths.insert(paths.begin(), Breadth_First_Search().findPath(maze));
     }
     else if (algorithmNo == 1){
-        Breadth_First_Search_Optimized algorithm = Breadth_First_Search_Optimized();
-        path = algorithm.findPath(maze);
+        paths.insert(paths.begin(), Breadth_First_Search_Optimized().findPath(maze));
     }
     else if (algorithmNo == 2) {
-        Depth_First_Search algorithm = Depth_First_Search();
-        path = algorithm.findPath(maze);
+        paths.insert(paths.begin(), Depth_First_Search().findPath(maze));
     }
-    else if (algorithmNo == 3){
-        Dijkstra_Algorithm algorithm = Dijkstra_Algorithm();
-        path = algorithm.findPath(maze);
+    else if (algorithmNo == 3) {
+        paths.insert(paths.begin(), Depth_First_Search_Optimized().findPath(maze));
     }
     else if (algorithmNo == 4){
-        benchmark(maze);
+        paths.insert(paths.begin(), Dijkstra_Algorithm().findPath(maze));
+    }
+    else if (algorithmNo == 5){
+        paths.insert(paths.begin(), Breadth_First_Search().findPath(maze));
+        paths.insert(paths.begin(), Breadth_First_Search_Optimized().findPath(maze));
+        paths.insert(paths.begin(), Depth_First_Search().findPath(maze));
+        paths.insert(paths.begin(), Depth_First_Search_Optimized().findPath(maze));
+        paths.insert(paths.begin(), Dijkstra_Algorithm().findPath(maze));
     }
     if(!drawInSteps){
-        pathWidth = path.size();
+        pathWidth = paths.size();
     }
 }
 
@@ -220,18 +229,15 @@ void draw() {
     }
     // Draw path
     xd::strokeWeight(1);
-    xd::stroke(glm::vec4(1.0f, 0.8f, 0.1f, 1.0f));
+    for(int j = 0; j < paths.size(); j++) {
+        vector<tuple<Tile, Tile>> path = paths.at(j);
+        xd::stroke(glm::vec4((j+1) * 0.1f, pow(j, 2) * 0.05f, pow(j,3) * 0.01f, 1.0f));
 
-    if(path.size() > 0){
-        if(pathWidth <= path.size()){
-            pathWidth++;
-        }else{
-            xd::noLoop();
-        }
-        for(int i = 0; i < pathWidth; i++){
+        for (int i = 0; i < path.size(); i++) {
             Tile start = get<0>(path[i]);
             Tile end = get<1>(path[i]);
-            xd::line(start.getX() + tileSize / 2 + tileSize, start.getY() + tileSize / 2 + tileSize, end.getX() + tileSize / 2 + tileSize, end.getY() + tileSize / 2 + tileSize);
+            xd::line(start.getX() + tileSize / 2 + tileSize + (j*3 * pow(-1, j)), start.getY() + tileSize / 2 + tileSize + (j*3 * pow(-1, j)),
+                     end.getX() + tileSize / 2 + tileSize + (j*3 * pow(-1, j)), end.getY() + tileSize / 2 + tileSize + (j*3 * pow(-1, j)));
         }
     }
 
