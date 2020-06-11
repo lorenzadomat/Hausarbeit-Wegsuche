@@ -16,12 +16,13 @@ class Search_Algorithms
 {
 private:
     float duration;
+    int curEndX;
+    int curEndY;
 public:
-	Search_Algorithms() {}
+	Search_Algorithms(){};
 	virtual vector<tuple<Tile, Tile>> findPath(Maze) = 0;
-    double distanceToPoint(int startY, int startX, int pEndY, int pEndX) {
-        return sqrt(pow(pEndX - startX, 2) + pow(pEndY - startY, 2));
-    }
+    double distanceToPoint(int startY, int startX, int pEndY, int pEndX);
+    bool sortByDistance(Tile* i, Tile* j);
     void setDuration(float pDuration){duration = pDuration;}
     float getDuration(){return duration;}
 };

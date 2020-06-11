@@ -4,6 +4,7 @@ Depth_First_Search_Optimized::Depth_First_Search_Optimized()
 {
 }
 
+
 /*
 	recursive depth-frist-search algorithm
 */
@@ -31,6 +32,8 @@ vector<tuple<Tile, Tile>> Depth_First_Search_Optimized::findPath(Maze maze)
     Timer timer;
     //Start Timer
     timer.start();
+    this->curEndX = maze.getEnd()->getX();
+    this->curEndY = maze.getEnd()->getY();
 
     //Start Algorithm
     dfs(&maze,maze.getStart());
