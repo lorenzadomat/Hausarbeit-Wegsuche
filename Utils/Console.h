@@ -81,10 +81,15 @@ void printAlgorithmOptions(){
 
     cout << left << std::setw(numberWidth) << setfill(seperator) << "2";
     cout << "|";
-    cout << left << std::setw(algoWidth) << setfill(seperator) << "\tDijkstra";
+    cout << left << std::setw(algoWidth) << setfill(seperator) << "\tTiefensuche";
     cout << left << endl;
 
     cout << left << std::setw(numberWidth) << setfill(seperator) << "3";
+    cout << "|";
+    cout << left << std::setw(algoWidth) << setfill(seperator) << "\tDijkstra";
+    cout << left << endl;
+
+    cout << left << std::setw(numberWidth) << setfill(seperator) << "4";
     cout << "|";
     cout << left << std::setw(algoWidth) << setfill(seperator) << "\tBenchmark";
     cout << left << endl;

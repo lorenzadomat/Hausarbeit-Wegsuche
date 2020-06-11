@@ -6,10 +6,12 @@
 class Depth_First_Search: public Search_Algorithms
 {
 private:
-
+    vector<tuple<Tile, Tile> > finalPath;
+    bool finished;
 public:
-	Depth_First_Search();
-	vector<tuple<Tile, Tile>> findPath(Maze);
+    Depth_First_Search();
+    vector<tuple<Tile, Tile>> findPath(Maze);
+    void dfs(Maze*, Tile*);
 };
 
 #endif

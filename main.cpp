@@ -21,9 +21,15 @@ int endX = -1;
 int endY = -1;
 bool drawInSteps = false;
 
+void benchmark(Maze maze){
+    Breadth_First_Search().findPath(maze);
+    Breadth_First_Search_Optimized().findPath(maze);
+    Depth_First_Search().findPath(maze);
+    path = Dijkstra_Algorithm().findPath(maze);
+}
+
 void userInput(){
     string input;
-    //TODO Input validation
     while(mazeNo == -1) {
         printMazeOptions();
         cin >> input;
@@ -43,51 +49,87 @@ void userInput(){
             mazeNo = 2;
             break;
         } else {
-            cout << "\033[1;31mInvalid Input\033[0m" << endl;
+            cerr << "\033[1;31mInvalid Input\033[0m" << endl;
         }
     }
     cout << endl;
     if(mazeNo == 2){
         while(columns < 0 || rows < 0){
-            cout << "Enter the number of rows";
-            cout << endl;
+            cout << "Enter the number of rows" << endl;
             cout << "Rows = ";
-            cin >> rows;
-            cout << "Enter the number of columns";
-            cout << endl;
+            cin.exceptions(ios::failbit);
+            try {
+                cin >> rows;
+            }
+            catch (ios::failure& e) {
+                cerr << e.what() << endl;
+            }
+            cout << "Enter the number of columns" << endl;
             cout << "Columns = ";
-            cin >> columns;
+            try {
+                cin >> columns;
+            }
+            catch (ios::failure& e) {
+                cerr << e.what() << endl;
+            }
         }
         while(startX < 0 || startY < 0 || endX < 0 || endY < 0 || startX > columns || startY > rows || endX > columns || endY > rows) {
-            cout << "Enter a Start-Point";
-            cout << endl;
+            cout << "Enter a Start-Point" << endl;
             cout << "x = ";
-            cin >> startX;
+            cin.exceptions(ios::failbit);
+            try {
+                cin >> startX;
+            }
+            catch (ios::failure& e) {
+                cerr << e.what() << endl;
+            }
             cout << "y = ";
-            cin >> startY;
+            try {
+                cin >> startY;
+            }
+            catch (ios::failure& e) {
+                cerr << e.what() << endl;
+            }
             cout << "Enter an End-Point";
             cout << endl;
             cout << "x = ";
-            cin >> endX;
+            try {
+                cin >> endX;
+            }
+            catch (ios::failure& e) {
+                cerr << e.what() << endl;
+            }
             cout << "y = ";
-            cin >> endY;
+            try {
+                cin >> endY;
+            }
+            catch (ios::failure& e) {
+                cerr << e.what() << endl;
+            }
         }
     }
     cout << endl;
-    while(algorithmNo == -1) {
+    while (algorithmNo == -1) {
         printAlgorithmOptions();
         cin >> input;
         if (input == "Breitensuche" || input == "0") {
             algorithmNo = 0;
             break;
-        } else if (input == "Breitensuche2" || input == "1") {
+        }
+        else if (input == "Breitensuche2" || input == "1") {
             algorithmNo = 1;
             break;
-        } else if (input == "Dijkstra" || input == "2") {
+        }
+        else if (input == "Tiefensuche" || input == "2") {
             algorithmNo = 2;
             break;
-        } else if (input == "Benchmark" || input == "3") {
+        }
+        else if (input == "Dijkstra" || input == "3") {
             algorithmNo = 3;
+            break;
+        }
+        else if (input == "Benchmark" || input == "4") {
+            algorithmNo = 4;
             break;
         } else if (input == "Exit" || input == "exit") {
             mazeNo = -1;
@@ -125,14 +167,21 @@ void setup() {
     if(algorithmNo == 0){
         Breadth_First_Search algorithm = Breadth_First_Search();
         path = algorithm.findPath(maze);
-    }else if (algorithmNo == 1){
+    }
+    else if (algorithmNo == 1){
         Breadth_First_Search_Optimized algorithm = Breadth_First_Search_Optimized();
         path = algorithm.findPath(maze);
-    }else if (algorithmNo == 2){
+    }
+    else if (algorithmNo == 2) {
+        Depth_First_Search algorithm = Depth_First_Search();
+        path = algorithm.findPath(maze);
+    }
+    else if (algorithmNo == 3){
         Dijkstra_Algorithm algorithm = Dijkstra_Algorithm();
         path = algorithm.findPath(maze);
-    }else if (algorithmNo == 3){
-        //benchmark(maze);
+    }
+    else if (algorithmNo == 4){
+        benchmark(maze);
     }
     if(!drawInSteps){
         pathWidth = path.size();
