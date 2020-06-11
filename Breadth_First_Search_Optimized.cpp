@@ -33,6 +33,7 @@ vector<tuple<Tile, Tile>> Breadth_First_Search_Optimized::findPath(Maze maze) {
 		vector<Tile*> neighbours = maze.getUnvisitedAccessibleNeighbours(tile->getY() / tileSize, tile->getX() / tileSize);
 
 		// Erase First Element and add new Neighbours to sorted vector
+		// Insertion Sort, because it´s faster than the template sort-method
         queue.erase(queue.begin());
         for(int j = 0; j < neighbours.size(); j++){
             neighbours[j]->setVisited(true);
@@ -59,6 +60,7 @@ vector<tuple<Tile, Tile>> Breadth_First_Search_Optimized::findPath(Maze maze) {
 	//End Timer
 	timer.stop();
 	printTableRow("Breitensuche2", timer.getDuration(), maze.getNumberOfCalls());
+    this->setDuration(timer.getDuration());
 	return finalPath;
 }
 

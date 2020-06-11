@@ -3,7 +3,7 @@
 #include "Utils/Timer.cpp"
 #include "Tile.cpp"
 #include "Maze.cpp"
-#include "SearchAlgorithms.h"
+#include "Search_Algorithms.h"
 
 
 BOOST_AUTO_TEST_CASE( init ){

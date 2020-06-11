@@ -42,6 +42,7 @@ vector<tuple<Tile, Tile>> Breadth_First_Search::findPath(Maze maze) {
 	//End Timer
 	timer.stop();
 	printTableRow("Breitensuche", timer.getDuration(), maze.getNumberOfCalls());
+	this->setDuration(timer.getDuration());
 	return finalPath;
 
 }

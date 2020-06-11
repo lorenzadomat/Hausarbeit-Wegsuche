@@ -64,6 +64,7 @@ vector<tuple<Tile, Tile> > Dijkstra_Algorithm::findPath(Maze maze) {
 	//End Timer
 	timer.stop();
 	printTableRow("Dijkstra-Algorithm", timer.getDuration(), maze.getNumberOfCalls());
+    this->setDuration(timer.getDuration());
 
 	//create final path
 	tile = end;
