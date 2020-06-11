@@ -17,6 +17,9 @@ class Search_Algorithms
 public:
 	Search_Algorithms() {}
 	virtual vector<tuple<Tile, Tile>> findPath(Maze) = 0;
+    double distanceToPoint(int startY, int startX, int pEndY, int pEndX) {
+        return sqrt(pow(pEndX - startX, 2) + pow(pEndY - startY, 2));
+    }
 };
 
 #endif

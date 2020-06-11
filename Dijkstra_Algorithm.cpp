@@ -32,7 +32,6 @@ vector<tuple<Tile, Tile> > Dijkstra_Algorithm::findPath(Maze maze) {
 			allTiles.insert(allTiles.end(), maze.getTile(y, x));
 			allTiles.at(x * maze.getRows() + y)->setDistance(INT_MAX);
 			allTiles.at(x * maze.getRows() + y)->setPredecessor(nullptr);
-			cout << "Y: " << y << endl;
 		}
 
 		tile->setDistance(0); //obviously the distance from start to start equals 0 
