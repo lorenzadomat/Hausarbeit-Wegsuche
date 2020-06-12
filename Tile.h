@@ -37,10 +37,12 @@ public:
     void setRight(bool value){right = value;}
     void setBottom(bool value){bottom = value;}
     void setLeft(bool value){left = value;}
-    void setValues(int pX, int pY, bool pTop, bool pRight, bool pBottom, bool pLeft);
     friend ostream& operator<< (ostream &ostr, const Tile& t){
         ostr << "x = " << static_cast<int>(t.x) / tileSize << "; y = " << static_cast<int>(t.y) / tileSize<< " | Top: " << static_cast<bool>(t.top) << " | Right: " << static_cast<bool>(t.right) << " | Bottom: " << static_cast<bool>(t.bottom) << " | Left: " << static_cast<bool>(t.left) << "\n";
         return ostr;
+    }
+    friend bool operator==(const Tile& t1, const Tile& t2){
+        return t1.x == t2.x && t1.y == t2.y;
     }
 
 };

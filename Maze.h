@@ -18,6 +18,7 @@ private:
     int rows;
 public:
     Maze(){};
+    Maze(int maze);
     Maze(int maze, int pStartX, int pStartY, int pEndX, int pEndY, int pColumns, int pRows);
     Tile* getTile(int pY, int pX);
     Tile* getStart();

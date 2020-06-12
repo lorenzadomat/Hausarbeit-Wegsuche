@@ -79,7 +79,7 @@
 
 #endif
 
-#define tileSize 30
+#define tileSize 20
 
 using namespace std;
 

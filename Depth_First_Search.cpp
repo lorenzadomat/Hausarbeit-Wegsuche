@@ -5,7 +5,7 @@ Depth_First_Search::Depth_First_Search()
 }
 
 /*
-	recursive depth-frist-search algorithm
+	recursive depth-first-search algorithm
 */
 void Depth_First_Search::dfs(Maze* maze, Tile * tile)
 {
@@ -37,7 +37,6 @@ vector<tuple<Tile, Tile>> Depth_First_Search::findPath(Maze maze)
 
     //End Timer
     timer.stop();
-    printTableRow("Tiefensuche", timer.getDuration(), maze.getNumberOfCalls());
-    this->setDuration(timer.getDuration());
+    printTableRow("Depth_First_Search", timer.getDuration(), maze.getNumberOfCalls());
     return finalPath;
 }

@@ -4,7 +4,7 @@
 #include <iomanip>
 
 const char seperator = ' ';
-const int algoWidth = 20;
+const int algoWidth = 30;
 const int durationWidth = 20;
 const int callsWidth = 10;
 const int mazeWidth = 20;
@@ -71,22 +71,22 @@ void printAlgorithmOptions(){
 
     cout << left << std::setw(numberWidth) << setfill(seperator) << "0";
     cout << "|";
-    cout << left << std::setw(algoWidth) << setfill(seperator) << "\tBreitensuche";
+    cout << left << std::setw(algoWidth) << setfill(seperator) << "\tBreadth_First_Search";
     cout << left << endl;
 
     cout << left << std::setw(numberWidth) << setfill(seperator) << "1";
     cout << "|";
-    cout << left << std::setw(algoWidth) << setfill(seperator) << "\tBreitensuche_Opt";
+    cout << left << std::setw(algoWidth) << setfill(seperator) << "\tBreadth_First_Search_Opt";
     cout << left << endl;
 
     cout << left << std::setw(numberWidth) << setfill(seperator) << "2";
     cout << "|";
-    cout << left << std::setw(algoWidth) << setfill(seperator) << "\tTiefensuche";
+    cout << left << std::setw(algoWidth) << setfill(seperator) << "\tDepth_First_Search";
     cout << left << endl;
 
     cout << left << std::setw(numberWidth) << setfill(seperator) << "3";
     cout << "|";
-    cout << left << std::setw(algoWidth) << setfill(seperator) << "\tTiefensuche_Opt";
+    cout << left << std::setw(algoWidth) << setfill(seperator) << "\tDepth_First_Search_Opt";
     cout << left << endl;
 
     cout << left << std::setw(numberWidth) << setfill(seperator) << "4";

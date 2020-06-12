@@ -13,15 +13,17 @@ Maze::Maze(int maze, int pStartX, int pStartY, int pEndX, int pEndY, int pColumn
     endY = pEndY;
     columns = pColumns;
     rows = pRows;
+    
+    genRandomMaze();
+}
+
+Maze::Maze(int maze) {
 
     if(maze == 0) {
         exampleMaze1();
     }else if(maze == 1){
         exampleMaze2();
-    }else if(maze == 2){
-        genRandomMaze();
     }
-
 }
 
 Tile* Maze::getTile(int pY, int pX) {
@@ -174,9 +176,12 @@ void Maze::exampleMaze1(){
             Tile(3 * tileSize , 4 * tileSize , true, false, false, true),
             Tile(4 * tileSize , 4 * tileSize , true, false, false, false)
     });
-
-    setStart(startY, startX);
-    setEnd(endY, endX);
+    
+    
+    rows = 5;
+    columns = 5;
+    setStart(0, 3);
+    setEnd(4, 1);
 }
 
 void Maze::exampleMaze2() {

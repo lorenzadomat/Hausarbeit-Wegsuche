@@ -23,13 +23,11 @@ vector<tuple<Tile, Tile>> Breadth_First_Search_Optimized::findPath(Maze maze) {
 	//Start Algorithm
 	maze.getStart()->setVisited(true);
 	queue.insert(queue.end(), maze.getStart());
-	bool found = false;
-	while (queue.size() > 0 || found) {
+	while (queue.size() > 0) {
 		Tile* tile = queue.front();
-		if (tile == maze.getEnd()) {
-			found = true;
-			break;
-		}
+        if (tile == maze.getEnd()) {
+            goto end;
+        }
 		vector<Tile*> neighbours = maze.getUnvisitedAccessibleNeighbours(tile->getY() / tileSize, tile->getX() / tileSize);
 
 		// Erase First Element and add new Neighbours to sorted vector
@@ -38,6 +36,10 @@ vector<tuple<Tile, Tile>> Breadth_First_Search_Optimized::findPath(Maze maze) {
         for(int j = 0; j < neighbours.size(); j++){
             neighbours[j]->setVisited(true);
             finalPath.insert(finalPath.end(), make_tuple(*tile, *neighbours[j]));
+            if (neighbours[j] == maze.getEnd()) {
+                goto end;
+            }
+
             double distance = distanceToPoint(neighbours[j]->getY(), neighbours[j]->getX(), maze.getEnd()->getY(), maze.getEnd()->getX());
             bool inserted = false;
             for (int i = 0; i < queue.size(); i++){
@@ -58,9 +60,9 @@ vector<tuple<Tile, Tile>> Breadth_First_Search_Optimized::findPath(Maze maze) {
 
 
 	//End Timer
-	timer.stop();
-	printTableRow("Breitensuche_Opt", timer.getDuration(), maze.getNumberOfCalls());
-    this->setDuration(timer.getDuration());
-	return finalPath;
+	end:
+        timer.stop();
+        printTableRow("Breadth_First_Search_Opt", timer.getDuration(), maze.getNumberOfCalls());
+        return finalPath;
 }
 
