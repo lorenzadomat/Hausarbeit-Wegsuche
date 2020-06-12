@@ -25,14 +25,17 @@ vector<tuple<Tile, Tile>> Breadth_First_Search::findPath(Maze maze) {
 	queue.push(tile);
 	while (queue.size() > 0) {
 		tile = queue.front();
-		if (tile == end) {
-			break;
-		}
+        if (tile == end) {
+            goto end;
+        }
 		vector<Tile*> neighbours = maze.getUnvisitedAccessibleNeighbours(tile->getY() / tileSize, tile->getX() / tileSize);
 		for (int i = 0; i < neighbours.size(); i++) {
 			neighbours[i]->setVisited(true);
 			queue.push(neighbours[i]);
 			finalPath.insert(finalPath.end(), make_tuple(*tile, *neighbours[i]));
+            if (neighbours[i] == end) {
+                goto end;
+            }
 		}
 		queue.pop();
 
@@ -40,9 +43,9 @@ vector<tuple<Tile, Tile>> Breadth_First_Search::findPath(Maze maze) {
 	//End Algorithm
 
 	//End Timer
-	timer.stop();
-	printTableRow("Breitensuche", timer.getDuration(), maze.getNumberOfCalls());
-	this->setDuration(timer.getDuration());
-	return finalPath;
+	end:
+        timer.stop();
+        printTableRow("Breadth_First_Search", timer.getDuration(), maze.getNumberOfCalls());
+        return finalPath;
 
 }

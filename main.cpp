@@ -11,7 +11,7 @@
 
 Maze maze;
 vector<vector<tuple<Tile, Tile>>> paths;
-int pathWidth = 0;
+vector<int> pathWidth(5);
 int algorithmNo = -1;
 int mazeNo = -1;
 int columns = -1;
@@ -56,7 +56,7 @@ void userInput(){
     }
     cout << endl;
     if(mazeNo == 2){
-        while(columns < 0 || rows < 0){
+        while(columns <= 0 || rows <= 0){
             cout << "Enter the number of rows" << endl;
             cout << "Rows = ";
             cin.exceptions(ios::failbit);
@@ -114,19 +114,19 @@ void userInput(){
     while (algorithmNo == -1) {
         printAlgorithmOptions();
         cin >> input;
-        if (input == "Breitensuche" || input == "0") {
+        if (input == "Breadth_First_Search" || input == "0") {
             algorithmNo = 0;
             break;
         }
-        else if (input == "Breitensuche_Opt" || input == "1") {
+        else if (input == "Breadth_First_Search_Opt" || input == "1") {
             algorithmNo = 1;
             break;
         }
-        else if (input == "Tiefensuche" || input == "2") {
+        else if (input == "Depth_First_Search" || input == "2") {
             algorithmNo = 2;
             break;
         }
-        else if (input == "Tiefensuche_Opt" || input == "3") {
+        else if (input == "Depth_First_Search_Opt" || input == "3") {
             algorithmNo = 3;
             break;
         }
@@ -148,14 +148,14 @@ void userInput(){
     }
 
     cout << endl;
-    #ifdef makeGUI
-        cout << "Draw in Steps? (Y / N): ";
+#ifdef makeGUI
+    cout << "Draw in Steps? (Y / N): ";
         cin >> input;
         if(input == "Y" || input == "y"){
             drawInSteps = true;
         }
-    #endif
-    
+#endif
+
 
 
 
@@ -167,7 +167,12 @@ void userInput(){
 
 void setup() {
     userInput();
-    maze = Maze(mazeNo, startX, startY, endX, endY, columns, rows);
+    if(mazeNo != 2){
+        maze = Maze(mazeNo);
+    }else{
+        maze = Maze(mazeNo , startX, startY, endX, endY, columns, rows);
+    }
+
     xd::size(1200, 900);
     printTableHeader();
     if(algorithmNo == 0){
@@ -186,14 +191,17 @@ void setup() {
         paths.insert(paths.begin(), Dijkstra_Algorithm().findPath(maze));
     }
     else if (algorithmNo == 5){
+        //benchmark
         paths.insert(paths.begin(), Breadth_First_Search().findPath(maze));
         paths.insert(paths.begin(), Breadth_First_Search_Optimized().findPath(maze));
         paths.insert(paths.begin(), Depth_First_Search().findPath(maze));
         paths.insert(paths.begin(), Depth_First_Search_Optimized().findPath(maze));
         paths.insert(paths.begin(), Dijkstra_Algorithm().findPath(maze));
     }
-    if(!drawInSteps){
-        pathWidth = paths.size();
+    if (!drawInSteps) {
+        for (int i = 0; i < paths.size(); i++) {
+            pathWidth.at(i) = paths.at(i).size();
+        }
     }
 }
 
@@ -210,7 +218,7 @@ void draw() {
                 xd::fill(tile->getColor());
                 xd::strokeWeight(0);
                 xd::rect(xStart,  yStart, tileSize, tileSize);
-                xd::strokeWeight(2);
+                xd::strokeWeight(3);
                 xd::stroke(glm::vec4(0, 0, 0, 1));
                 if (!tile->getTop()) {
                     xd::line(xStart, yStart, xStart + tileSize, yStart);
@@ -228,16 +236,37 @@ void draw() {
         }
     }
     // Draw path
-    xd::strokeWeight(1);
-    for(int j = 0; j < paths.size(); j++) {
+    xd::strokeWeight(1.5);
+    for (int j = 0; j < paths.size(); j++) {
         vector<tuple<Tile, Tile>> path = paths.at(j);
-        xd::stroke(glm::vec4((j+1) * 0.1f, pow(j, 2) * 0.05f, pow(j,3) * 0.01f, 1.0f));
 
-        for (int i = 0; i < path.size(); i++) {
+        switch (j) {
+            case 0:
+                xd::stroke(glm::vec4(1.0f, 1.0f, 0.0f, 1.0f)); //yellow
+                break;
+            case 1:
+                xd::stroke(glm::vec4(1.0f, 0.6f, 0.0f, 1.0f)); //orange
+                break;
+            case 2:
+                xd::stroke(glm::vec4(0.4f, 1.0f, 0.0f, 1.0f)); //green
+                break;
+            case 3:
+                xd::stroke(glm::vec4(0.0f, 1.0f, 1.0f, 1.0f)); //turqoise
+                break;
+            case 4:
+                xd::stroke(glm::vec4(0.0f, 0.0f, 1.0f, 1.0f)); //dark blue
+                break;
+        }
+
+        if (pathWidth.at(j) < path.size()) {
+            pathWidth.at(j)++;
+        }
+
+        for (int i = 0; i < pathWidth.at(j); i++) {
             Tile start = get<0>(path[i]);
             Tile end = get<1>(path[i]);
-            xd::line(start.getX() + tileSize / 2 + tileSize + (j*3 * pow(-1, j)), start.getY() + tileSize / 2 + tileSize + (j*3 * pow(-1, j)),
-                     end.getX() + tileSize / 2 + tileSize + (j*3 * pow(-1, j)), end.getY() + tileSize / 2 + tileSize + (j*3 * pow(-1, j)));
+            xd::line(start.getX() + tileSize / 2 + tileSize + (j*pow(-1, j)), start.getY() + tileSize / 2 + tileSize + (j*pow(-1, j)),
+                     end.getX() + tileSize / 2 + tileSize + (j*pow(-1, j)), end.getY() + tileSize / 2 + tileSize + (j*pow(-1, j)));
         }
     }
 

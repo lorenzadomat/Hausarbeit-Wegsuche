@@ -64,12 +64,11 @@ vector<tuple<Tile, Tile> > Dijkstra_Algorithm::findPath(Maze maze) {
 	//End Timer
 	timer.stop();
 	printTableRow("Dijkstra-Algorithm", timer.getDuration(), maze.getNumberOfCalls());
-    this->setDuration(timer.getDuration());
 
 	//create final path
 	tile = end;
 	while (tile->getPredecessor() != nullptr) {
-		finalPath.insert(finalPath.end(), make_tuple(*tile, *tile->getPredecessor()));
+		finalPath.insert(finalPath.begin(), make_tuple(*tile->getPredecessor(), *tile));
 		tile = tile->getPredecessor();
 	}
 	return finalPath;

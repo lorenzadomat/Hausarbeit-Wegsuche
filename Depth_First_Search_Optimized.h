@@ -5,7 +5,7 @@ class Depth_First_Search_Optimized: public Search_Algorithms
 {
 private:
     vector<tuple<Tile, Tile> > finalPath;
-    bool finished;
+    bool finished = false;
 public:
     Depth_First_Search_Optimized();
     vector<tuple<Tile, Tile>> findPath(Maze);

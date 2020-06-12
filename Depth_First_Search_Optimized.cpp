@@ -63,8 +63,7 @@ vector<tuple<Tile, Tile>> Depth_First_Search_Optimized::findPath(Maze maze)
 
     //End Timer
     timer.stop();
-    printTableRow("Tiefensuche_Opt", timer.getDuration(), maze.getNumberOfCalls());
-    this->setDuration(timer.getDuration());
+    printTableRow("Depth_First_Search_Opt", timer.getDuration(), maze.getNumberOfCalls());
     return finalPath;
 }
 

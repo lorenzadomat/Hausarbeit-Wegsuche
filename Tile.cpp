@@ -15,14 +15,6 @@ Tile::Tile(int pX, int pY ,bool pTop, bool pRight, bool pBottom, bool pLeft) {
     left = pLeft;
     visited = false;
 }
-void Tile::setValues(int pX, int pY, bool pTop, bool pRight, bool pBottom, bool pLeft) {
-    x = pX;
-    y = pY;
-    top = pTop;
-    right = pRight;
-    bottom = pBottom;
-    left = pLeft;
-}
 
 void Tile::setDistance(int pDistance) {
     distance = pDistance;
