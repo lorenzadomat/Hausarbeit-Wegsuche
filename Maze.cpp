@@ -18,12 +18,7 @@ Maze::Maze(int maze, int pStartX, int pStartY, int pEndX, int pEndY, int pColumn
 }
 
 Maze::Maze(int maze) {
-
-    if(maze == 0) {
-        exampleMaze1();
-    }else if(maze == 1){
-        exampleMaze2();
-    }
+    exampleMaze();
 }
 
 Tile* Maze::getTile(int pY, int pX) {
@@ -139,8 +134,7 @@ void Maze::reset() {
     }
 }
 
-void Maze::exampleMaze1(){
-    //TODO Leave out * tileSize
+void Maze::exampleMaze(){
     tiles.insert(tiles.end(), vector<Tile>{
         Tile(0 * tileSize , 0 * tileSize , false, false, false, false),
         Tile(1 * tileSize , 0 * tileSize , false, true, true, false),
@@ -184,9 +178,6 @@ void Maze::exampleMaze1(){
     setEnd(4, 1);
 }
 
-void Maze::exampleMaze2() {
-    //TODO
-}
 void Maze::genRandomMaze() {
     for(int y = 0; y < rows; y++){
         vector<Tile> row;

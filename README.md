@@ -6,7 +6,7 @@
 To draw the maze, c++ makes use of libxd:
 https://bernhardfritz.github.io/libxd/#/
 
-Open the libxd root directory
+Change directory to the libxd root directory
 
 ### Windows
 
@@ -40,8 +40,4 @@ Start compiled file
 ## Unit-Tests
 To start Unit-Tests, please install the c++ boost framework.
 
-# TODO
-
-- Benchmark 
-- Unit-Tests
 

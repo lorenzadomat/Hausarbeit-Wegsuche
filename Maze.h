@@ -32,8 +32,7 @@ public:
     vector<Tile*> getUnvisitedNeighbours(int pY, int pX);
     vector<Tile*> getUnvisitedAccessibleNeighbours(int pY, int pX);
     int getNumberOfCalls(){return numberOfCalls;}
-    void exampleMaze1();
-    void exampleMaze2();
+    void exampleMaze();
     void genRandomMaze();
     void reset();
     void setStart(int pY, int pX);

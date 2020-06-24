@@ -3,7 +3,6 @@
 #include "Breadth_First_Search.cpp"
 #include "Breadth_First_Search_Optimized.cpp"
 #include "Depth_First_Search.cpp"
-#include "Depth_First_Search_Optimized.cpp"
 #include "Dijkstra_Algorithm.cpp"
 #include "Utils/Console.h"
 #include <vector>
@@ -26,7 +25,6 @@ void benchmark(Maze maze){
     paths.insert(paths.begin(), Breadth_First_Search().findPath(maze));
     paths.insert(paths.begin(), Breadth_First_Search_Optimized().findPath(maze));
     paths.insert(paths.begin(), Depth_First_Search().findPath(maze));
-    paths.insert(paths.begin(), Depth_First_Search_Optimized().findPath(maze));
     paths.insert(paths.begin(), Dijkstra_Algorithm().findPath(maze));
 }
 
@@ -35,7 +33,7 @@ void userInput(){
     while(mazeNo == -1) {
         printMazeOptions();
         cin >> input;
-        if (input == "Example1" || input == "0") {
+        if (input == "Example_Maze" || input == "0") {
             mazeNo = 0;
             columns = 5;
             rows = 5;
@@ -44,69 +42,108 @@ void userInput(){
             endX = 1;
             endY = 4;
             break;
-        } else if (input == "Example2" || input == "1") {
+        } else if (input == "Random_Maze" || input == "1") {
             mazeNo = 1;
-            break;
-        } else if (input == "Random" || input == "2") {
-            mazeNo = 2;
             break;
         } else {
             cerr << "\033[1;31mInvalid Input\033[0m" << endl;
         }
     }
     cout << endl;
-    if(mazeNo == 2){
-        while(columns <= 0 || rows <= 0){
-            cout << "Enter the number of rows" << endl;
+    if(mazeNo == 1){
+        cin.exceptions(ios::failbit);
+        cout << "Enter the number of rows" << endl;
+        while (rows <= 0) {
             cout << "Rows = ";
-            cin.exceptions(ios::failbit);
             try {
                 cin >> rows;
             }
             catch (ios::failure& e) {
                 cerr << e.what() << endl;
+                rows = -1;
+                cin.clear();
+                rewind(stdin);
             }
-            cout << "Enter the number of columns" << endl;
+            if (rows <= 0) {
+                cout << "Please enter a number greater than 0" << endl;
+            }
+        }
+        cout << "Enter the number of columns" << endl;
+        while (columns <= 0) {
             cout << "Columns = ";
             try {
                 cin >> columns;
             }
             catch (ios::failure& e) {
                 cerr << e.what() << endl;
+                columns = -1;
+                cin.clear();
+                rewind(stdin);
+            }
+            if (columns <= 0) {
+                cout << "Please enter a number greater than 0" << endl;
             }
         }
-        while(startX < 0 || startY < 0 || endX < 0 || endY < 0 || startX > columns || startY > rows || endX > columns || endY > rows) {
-            cout << "Enter a Start-Point" << endl;
+        cout << "Enter a Start-Point" << endl;
+        while (startX < 0 || startX >= columns) {
             cout << "x = ";
-            cin.exceptions(ios::failbit);
             try {
                 cin >> startX;
             }
             catch (ios::failure& e) {
                 cerr << e.what() << endl;
+                startX = -1;
+                cin.clear();
+                rewind(stdin);
             }
+            if (startX < 0 || startX >= columns) {
+                cout << "Please enter a number greater than or equal to 0 and less than " << columns << endl;
+            }
+        }
+        while (startY < 0 || startY >= rows) {
             cout << "y = ";
             try {
                 cin >> startY;
             }
             catch (ios::failure& e) {
                 cerr << e.what() << endl;
+                startY = -1;
+                cin.clear();
+                rewind(stdin);
             }
-            cout << "Enter an End-Point";
-            cout << endl;
+            if (startX < 0 || startX >= rows) {
+                cout << "Please enter a number greater than or equal to 0 and less than " << rows << endl;
+            }
+        }
+        cout << "Enter an End-Point" << endl;
+        while (endX < 0 || endX >= columns) {
             cout << "x = ";
             try {
                 cin >> endX;
             }
             catch (ios::failure& e) {
                 cerr << e.what() << endl;
+                endX = -1;
+                cin.clear();
+                rewind(stdin);
             }
+            if (endX < 0 || endX >= columns) {
+                cout << "Please enter a number greater than or equal to 0 and less than " << columns << endl;
+            }
+        }
+        while (endY < 0 || endY >= rows) {
             cout << "y = ";
             try {
                 cin >> endY;
             }
             catch (ios::failure& e) {
                 cerr << e.what() << endl;
+                endY = -1;
+                cin.clear();
+                rewind(stdin);
+            }
+            if (endY < 0 || endY >= rows) {
+                cout << "Please enter a number greater than or equal to 0 and less than " << rows << endl;
             }
         }
     }
@@ -126,16 +163,12 @@ void userInput(){
             algorithmNo = 2;
             break;
         }
-        else if (input == "Depth_First_Search_Opt" || input == "3") {
+        else if (input == "Dijkstra" || input == "3") {
             algorithmNo = 3;
             break;
         }
-        else if (input == "Dijkstra" || input == "4") {
+        else if (input == "Benchmark" || input == "4") {
             algorithmNo = 4;
-            break;
-        }
-        else if (input == "Benchmark" || input == "5") {
-            algorithmNo = 5;
             break;
         } else if (input == "Exit" || input == "exit") {
             mazeNo = -1;
@@ -167,7 +200,7 @@ void userInput(){
 
 void setup() {
     userInput();
-    if(mazeNo != 2){
+    if(mazeNo != 1){
         maze = Maze(mazeNo);
     }else{
         maze = Maze(mazeNo , startX, startY, endX, endY, columns, rows);
@@ -184,18 +217,14 @@ void setup() {
     else if (algorithmNo == 2) {
         paths.insert(paths.begin(), Depth_First_Search().findPath(maze));
     }
-    else if (algorithmNo == 3) {
-        paths.insert(paths.begin(), Depth_First_Search_Optimized().findPath(maze));
-    }
-    else if (algorithmNo == 4){
+    else if (algorithmNo == 3){
         paths.insert(paths.begin(), Dijkstra_Algorithm().findPath(maze));
     }
-    else if (algorithmNo == 5){
+    else if (algorithmNo == 4){
         //benchmark
         paths.insert(paths.begin(), Breadth_First_Search().findPath(maze));
         paths.insert(paths.begin(), Breadth_First_Search_Optimized().findPath(maze));
         paths.insert(paths.begin(), Depth_First_Search().findPath(maze));
-        paths.insert(paths.begin(), Depth_First_Search_Optimized().findPath(maze));
         paths.insert(paths.begin(), Dijkstra_Algorithm().findPath(maze));
     }
     if (!drawInSteps) {
@@ -252,9 +281,6 @@ void draw() {
                 break;
             case 3:
                 xd::stroke(glm::vec4(0.0f, 1.0f, 1.0f, 1.0f)); //turqoise
-                break;
-            case 4:
-                xd::stroke(glm::vec4(0.0f, 0.0f, 1.0f, 1.0f)); //dark blue
                 break;
         }
 

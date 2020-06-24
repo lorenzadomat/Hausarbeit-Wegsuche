@@ -1,4 +1,5 @@
 #include "Breadth_First_Search_Optimized.h"
+#include <algorithm>
 
 Breadth_First_Search_Optimized::Breadth_First_Search_Optimized()
 {

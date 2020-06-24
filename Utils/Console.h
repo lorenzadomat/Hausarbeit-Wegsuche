@@ -43,17 +43,12 @@ void printMazeOptions(){
 
     cout << left << std::setw(numberWidth) << setfill(seperator) << "0";
     cout << "|";
-    cout << left << std::setw(mazeWidth) << setfill(seperator) << "\tExample Maze 1";
+    cout << left << std::setw(mazeWidth) << setfill(seperator) << "\tExample_Maze";
     cout << left << endl;
 
     cout << left << std::setw(numberWidth) << setfill(seperator) << "1";
     cout << "|";
-    cout << left << std::setw(mazeWidth) << setfill(seperator) << "\tExample Maze 2";
-    cout << left << endl;
-
-    cout << left << std::setw(numberWidth) << setfill(seperator) << "2";
-    cout << "|";
-    cout << left << std::setw(mazeWidth) << setfill(seperator) << "\tRandom Maze";
+    cout << left << std::setw(mazeWidth) << setfill(seperator) << "\tRandom_Maze";
     cout << left << endl;
 
     cout << "Please select a maze: ";
@@ -86,15 +81,10 @@ void printAlgorithmOptions(){
 
     cout << left << std::setw(numberWidth) << setfill(seperator) << "3";
     cout << "|";
-    cout << left << std::setw(algoWidth) << setfill(seperator) << "\tDepth_First_Search_Opt";
-    cout << left << endl;
-
-    cout << left << std::setw(numberWidth) << setfill(seperator) << "4";
-    cout << "|";
     cout << left << std::setw(algoWidth) << setfill(seperator) << "\tDijkstra";
     cout << left << endl;
 
-    cout << left << std::setw(numberWidth) << setfill(seperator) << "5";
+    cout << left << std::setw(numberWidth) << setfill(seperator) << "4";
     cout << "|";
     cout << left << std::setw(algoWidth) << setfill(seperator) << "\tBenchmark";
     cout << left << endl;

@@ -9,7 +9,6 @@
 #include "Breadth_First_Search.cpp"
 #include "Breadth_First_Search_Optimized.cpp"
 #include "Depth_First_Search.cpp"
-#include "Depth_First_Search_Optimized.cpp"
 #include "Dijkstra_Algorithm.cpp"
 
 
@@ -84,12 +83,6 @@ BOOST_AUTO_TEST_CASE( Search_Algorithm_Test ){
         BOOST_TEST(get<1>(path.at(path.size()-1)) == *maze.getEnd());
     }
 
-    BOOST_TEST_MESSAGE("Depth First Search Optimized");
-    for(int i = 0; i < 50; i++){
-        vector<tuple<Tile, Tile>> path = Depth_First_Search_Optimized().findPath(maze);
-        BOOST_TEST(get<1>(path.at(path.size()-1)) == *maze.getEnd());
-    }
-
     BOOST_TEST_MESSAGE("Dijkstra Algorithm");
     for(int i = 0; i < 50; i++){
         vector<tuple<Tile, Tile>> path = Dijkstra_Algorithm().findPath(maze);
@@ -101,7 +94,6 @@ BOOST_AUTO_TEST_CASE( Search_Algorithm_Test ){
     BOOST_CHECK_EQUAL(Breadth_First_Search().findPath(maze0).size(),0);
     BOOST_CHECK_EQUAL(Breadth_First_Search_Optimized().findPath(maze0).size(),0);
     BOOST_CHECK_EQUAL(Depth_First_Search().findPath(maze0).size(),0);
-    BOOST_CHECK_EQUAL(Depth_First_Search_Optimized().findPath(maze0).size(),0);
     BOOST_CHECK_EQUAL(Dijkstra_Algorithm().findPath(maze0).size(),0);
 
 
